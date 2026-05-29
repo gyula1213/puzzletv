@@ -2,6 +2,8 @@ import { PuzzleDefinition, PuzzleDefinitionLoader } from "../../types/puzzle/Puz
 import { NumberPTM } from "../../types/puzzle/PuzzleTypeMap";
 import { SudokuMaker } from "./Import";
 import { PuzzleImportSource } from "../../types/puzzle/PuzzleImportOptions";
+import { RulesParagraph } from "../../components/puzzle/rules/RulesParagraph";
+import { CellColor } from "../../types/puzzle/CellColor";
 
 // Geometriai proba a 4 db sudoku lanc megjelenitesere.
 
@@ -67,6 +69,17 @@ const initialDigits = [
     [undefined, undefined, undefined, undefined, undefined, undefined, undefined, 6, 4, undefined, undefined, undefined, 5, 9, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
 ];
 
+const initialColors: any = {};
+
+for (let r = 0; r < 9; r++) {
+    const row = initialColors[r] ?? {};
+
+    row[r + 6] = [CellColor.lightGrey];
+    row[14 - r] = [CellColor.lightGrey];
+
+    initialColors[r] = row;
+}
+
 export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
     noIndex: false,
     slug: "sudoku-chain-4",
@@ -101,14 +114,46 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
         return {
             ...puzzle,
             title: {
-                en: "4 Sudoku Chain - geometry test",
-                hu: "4 db sudoku lanc - geometria proba",
+                en: "4 Sudoku Chain",
             } as any,
             author: {
                 en: "Gyula Slenker",
             } as any,
+			rules: () => (
+				<>
+					<RulesParagraph>
+						The puzzle consists of four overlapping Sudoku grids.
+					</RulesParagraph>
+					<RulesParagraph>
+						Normal Sudoku rules apply in each of the four 9×9 grids.
+					</RulesParagraph>
+
+					<RulesParagraph>
+						1. Top Sudoku: Diagonal Sudoku. Digits 1–9 must also appear exactly
+						once on both main diagonals.
+					</RulesParagraph>
+
+					<RulesParagraph>
+						2. Left Sudoku: Non-consecutive Sudoku. Orthogonally adjacent cells
+						may not contain consecutive digits.
+					</RulesParagraph>
+
+					<RulesParagraph>
+						3. Right Sudoku: No XV Sudoku. Orthogonally adjacent cells may not
+						sum to 5 or 10.
+					</RulesParagraph>
+
+					<RulesParagraph>
+						4. Bottom Sudoku: For each of the two main diagonals, the first
+						three cells, the middle three cells and the last three cells must
+						contain identical sets of three digits. The order of the digits
+						within each group is irrelevant.
+					</RulesParagraph>
+				</>
+			),
             slug: "sudoku-chain-4",
 			initialDigits: initialDigits as any,
+			initialColors: initialColors as any,
             solution: solution as any,
         } as PuzzleDefinition<NumberPTM>;
     },
