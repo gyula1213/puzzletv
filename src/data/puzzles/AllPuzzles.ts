@@ -61,6 +61,7 @@ import { CaterpillarPoc } from "./Caterpillar";
 import { PeaucellierLipkinLinkage } from "./PeaucellierLipkinLinkage";
 import { JsTest } from "./JsTest";
 import { TesztSudoku } from "./TesztSudoku";
+import { SudokuChain4 } from "./SudokuChain4";
 import { Cornered, SlideAndSeekExample, SlideAndSeekIntro, TheBlackSheep, TheGap, WaxOnWaxOff } from "./SlideAndSeek";
 import { ElephantSlitherlink } from "./Slitherlink";
 import { EmptySpark, EmptySpark6x6, SparkKropki, Sparkster } from "./Spark";
@@ -134,6 +135,7 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
 
     JsTest,
     TesztSudoku,
+    SudokuChain4,
 
     PeaucellierLipkinLinkage,
 
