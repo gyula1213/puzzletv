@@ -4,6 +4,7 @@ import { SudokuMaker } from "./Import";
 import { PuzzleImportSource } from "../../types/puzzle/PuzzleImportOptions";
 import { RulesParagraph } from "../../components/puzzle/rules/RulesParagraph";
 import { CellColor } from "../../types/puzzle/CellColor";
+import { RegionConstraint } from "../../components/puzzle/constraints/region/Region";
 
 // Geometriai proba a 4 db sudoku lanc megjelenitesere.
 
@@ -111,13 +112,49 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
             ],
         } as any) as PuzzleDefinition<NumberPTM>;
 
+        const cell = (top: number, left: number) => ({ top, left });
+        const sudokuOffsets = [
+            { top: 0, left: 6 },   // top
+            { top: 6, left: 0 },   // left
+            { top: 6, left: 12 },  // right
+            { top: 12, left: 6 },  // bottom
+        ];
+        const sudokuRowColumnConstraints = sudokuOffsets.flatMap(({ top, left }, sudokuIndex) => {
+            const result = [];
+
+            for (let i = 0; i < 9; i++) {
+                result.push(
+                    RegionConstraint(
+                        Array.from({ length: 9 }, (_, j) => cell(top + i, left + j)),
+                        false,
+                        `sudoku ${sudokuIndex + 1} row ${i + 1}`,
+                    ),
+                );
+
+                result.push(
+                    RegionConstraint(
+                        Array.from({ length: 9 }, (_, j) => cell(top + j, left + i)),
+                        false,
+                        `sudoku ${sudokuIndex + 1} column ${i + 1}`,
+                    ),
+                );
+            }
+
+            return result;
+        });
         return {
             ...puzzle,
+            disableSudokuRules: true,
+
+            items: [
+            ...sudokuRowColumnConstraints,
+            ],
+            
             title: {
                 en: "4 Sudoku Chain",
             } as any,
             author: {
-                en: "Gyula Slenker",
+                en: "Gyula Slenker  14:18",
             } as any,
 			rules: () => (
 				<>
