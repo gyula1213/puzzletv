@@ -5,20 +5,11 @@ import { PuzzleImportSource } from "../../types/puzzle/PuzzleImportOptions";
 import { RulesParagraph } from "../../components/puzzle/rules/RulesParagraph";
 import { CellColor } from "../../types/puzzle/CellColor";
 import { RegionConstraint } from "../../components/puzzle/constraints/region/Region";
-
-// Geometriai proba a 4 db sudoku lanc megjelenitesere.
+import { Constraint } from "../../types/puzzle/Constraint";
+import { Position } from "../../types/layout/Position";
 
 const SUDOKU_LOAD =
     "N4IgZg9gTgtghgFwGoFMoGcCWEB2IBcIAjAHQDMJADCADQgAOArgF7MA2KBoOcMnhAOV4oO6dAAJ0jACYQA1o1og4jBAAtoBEAFUccnBADuOcQEFVGqEoDGItugIBtUADc4bRvwDsAXxqv3TwIyPwCPfgBOUJA3cIIAVmjYoPwADiTA-gAmDLj8IlyUgBZC-gA2UoIS-xjMghya5P4Cxrr8ENa8is6UqJ7%2BdP6CXyH8RNHxsJTuqYHK-PmR2ar5vuX8BvWO9c3avOr1pb3p1fnt4-5Ji4IW9cH1meu0%2BaumldHbp6O3jbPT0bWT0%2BP3OP12P1ebXuTwOT0eP2%2BUJe81hCPm4La8LaoLagJ%2BwOx-we82hP1RbQJeUReUheQxeUpKWpKXpvT%2BE3mWLypLaJQAunRrLh0AgoHBMDgEA58M4QAgAJ70fiUaIKpU3OhQFAAc2wOGljkoNCNRqINDNZqyNCtVpNxvNDst1uddtNjudNpoZC9PqKND9fviNCDQe9Yf9EcDwej4e9AYjIejZRoyeTXho6fTqRo2ezqZTGcLWZzJfzaaLJdzfJ81Z8QA";
-
-// const initialDigits = Array.from({ length: 21 }, () =>
-    // Array.from({ length: 21 }, () => undefined as number | undefined)
-// );
-// 
-// initialDigits[0][6] = 7;   // felső sudoku bal felső cellája
-// initialDigits[6][0] = 3;   // bal sudoku bal felső cellája
-// initialDigits[6][12] = 9;  // jobb sudoku bal felső cellája
-// initialDigits[12][6] = 5;  // alsó sudoku bal felső cellája
 
 const solution = [
     [undefined, undefined, undefined, undefined, undefined, undefined, 9, 1, 7, 6, 5, 8, 3, 4, 2, undefined, undefined, undefined, undefined, undefined, undefined],
@@ -43,8 +34,6 @@ const solution = [
     [undefined, undefined, undefined, undefined, undefined, undefined, 1, 2, 9, 3, 4, 5, 8, 7, 6, undefined, undefined, undefined, undefined, undefined, undefined],
     [undefined, undefined, undefined, undefined, undefined, undefined, 8, 6, 4, 7, 2, 1, 5, 9, 3, undefined, undefined, undefined, undefined, undefined, undefined],
 ];
-
-// const initialDigits = solution; // Kipróbálni, hogy a megoldás jól van-e feltöltve
 
 const initialDigits = [
     [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 7, undefined, undefined, undefined, 3, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
@@ -81,6 +70,41 @@ for (let r = 0; r < 9; r++) {
     initialColors[r] = row;
 }
 
+const NonConsecutivePairConstraint = (
+    cell1: Position,
+    cell2: Position,
+): Constraint<NumberPTM> => ({
+    name: "left sudoku non-consecutive pair",
+    cells: [cell1, cell2],
+    props: undefined,
+    isObvious: true,
+
+    isValidCell(cell, digits, cells, context) {
+        const [firstCell, secondCell] = cells;
+        const otherCell = cell.top === firstCell.top && cell.left === firstCell.left ? secondCell : firstCell;
+
+        const valueData = digits[cell.top]?.[cell.left];
+        const otherValueData = digits[otherCell.top]?.[otherCell.left];
+
+        if (valueData === undefined || otherValueData === undefined) {
+            return true;
+        }
+
+        const {
+            typeManager: { getDigitByCellData },
+        } = context.puzzle;
+
+        const value = getDigitByCellData(valueData, context, cell);
+        const otherValue = getDigitByCellData(otherValueData, context, otherCell);
+
+        if (value === undefined || otherValue === undefined) {
+            return true;
+        }
+
+        return Math.abs(value - otherValue) !== 1;
+    },
+});
+
 export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
     noIndex: false,
     slug: "sudoku-chain-4",
@@ -112,15 +136,16 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
             ],
         } as any) as PuzzleDefinition<NumberPTM>;
 
-        const cell = (top: number, left: number) => ({ top, left });
+        const cell = (top: number, left: number): Position => ({ top, left });
         const sudokuOffsets = [
             { top: 0, left: 6 },   // top
             { top: 6, left: 0 },   // left
             { top: 6, left: 12 },  // right
             { top: 12, left: 6 },  // bottom
         ];
-        const sudokuRowColumnConstraints = sudokuOffsets.flatMap(({ top, left }, sudokuIndex) => {
-            const result = [];
+
+        const sudokuRowColumnConstraints: Constraint<NumberPTM>[] = sudokuOffsets.flatMap(({ top, left }, sudokuIndex) => {
+            const result: Constraint<NumberPTM>[] = [];
 
             for (let i = 0; i < 9; i++) {
                 result.push(
@@ -142,55 +167,77 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
 
             return result;
         });
+
+        const leftSudokuNonConsecutiveConstraints: Constraint<NumberPTM>[] = [];
+
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                const current = cell(6 + r, c);
+
+                if (c < 8) {
+                    leftSudokuNonConsecutiveConstraints.push(
+                        NonConsecutivePairConstraint(current, cell(6 + r, c + 1)),
+                    );
+                }
+
+                if (r < 8) {
+                    leftSudokuNonConsecutiveConstraints.push(
+                        NonConsecutivePairConstraint(current, cell(6 + r + 1, c)),
+                    );
+                }
+            }
+        }
+
         return {
             ...puzzle,
             disableSudokuRules: true,
 
             items: [
-            ...sudokuRowColumnConstraints,
+                ...sudokuRowColumnConstraints,
+                ...leftSudokuNonConsecutiveConstraints,
             ],
-            
+
             title: {
                 en: "4 Sudoku Chain",
             } as any,
             author: {
-                en: "Gyula Slenker  14:18",
+                en: "Gyula Slenker",
             } as any,
-			rules: () => (
-				<>
-					<RulesParagraph>
-						The puzzle consists of four overlapping Sudoku grids.
-					</RulesParagraph>
-					<RulesParagraph>
-						Normal Sudoku rules apply in each of the four 9×9 grids.
-					</RulesParagraph>
+            rules: () => (
+                <>
+                    <RulesParagraph>
+                        The puzzle consists of four overlapping Sudoku grids.
+                    </RulesParagraph>
+                    <RulesParagraph>
+                        Normal Sudoku rules apply in each of the four 9×9 grids.
+                    </RulesParagraph>
 
-					<RulesParagraph>
-						1. Top Sudoku: Diagonal Sudoku. Digits 1–9 must also appear exactly
-						once on both main diagonals.
-					</RulesParagraph>
+                    <RulesParagraph>
+                        1. Top Sudoku: Diagonal Sudoku. Digits 1–9 must also appear exactly
+                        once on both main diagonals.
+                    </RulesParagraph>
 
-					<RulesParagraph>
-						2. Left Sudoku: Non-consecutive Sudoku. Orthogonally adjacent cells
-						may not contain consecutive digits.
-					</RulesParagraph>
+                    <RulesParagraph>
+                        2. Left Sudoku: Non-consecutive Sudoku. Orthogonally adjacent cells
+                        may not contain consecutive digits.
+                    </RulesParagraph>
 
-					<RulesParagraph>
-						3. Right Sudoku: No XV Sudoku. Orthogonally adjacent cells may not
-						sum to 5 or 10.
-					</RulesParagraph>
+                    <RulesParagraph>
+                        3. Right Sudoku: No XV Sudoku. Orthogonally adjacent cells may not
+                        sum to 5 or 10.
+                    </RulesParagraph>
 
-					<RulesParagraph>
-						4. Bottom Sudoku: For each of the two main diagonals, the first
-						three cells, the middle three cells and the last three cells must
-						contain identical sets of three digits. The order of the digits
-						within each group is irrelevant.
-					</RulesParagraph>
-				</>
-			),
+                    <RulesParagraph>
+                        4. Bottom Sudoku: For each of the two main diagonals, the first
+                        three cells, the middle three cells and the last three cells must
+                        contain identical sets of three digits. The order of the digits
+                        within each group is irrelevant.
+                    </RulesParagraph>
+                </>
+            ),
             slug: "sudoku-chain-4",
-			initialDigits: initialDigits as any,
-			initialColors: initialColors as any,
+            initialDigits: initialDigits as any,
+            initialColors: initialColors as any,
             solution: solution as any,
         } as PuzzleDefinition<NumberPTM>;
     },
