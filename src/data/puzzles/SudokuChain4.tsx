@@ -142,6 +142,47 @@ const NoXVPairConstraint = (
     },
 });
 
+// Lánykori nevén antidiagonális sudoku
+const MaxThreeValuesConstraint = (
+    cells: Position[],
+    name: string,
+): Constraint<NumberPTM> => ({
+    name,
+    cells,
+    props: undefined,
+    isObvious: true,
+
+    isValidCell(cell, digits, cells, context) {
+        const {
+            typeManager: { getDigitByCellData },
+        } = context.puzzle;
+
+        const values = new Set<number>();
+
+        for (const currentCell of cells) {
+            const valueData = digits[currentCell.top]?.[currentCell.left];
+
+            if (valueData === undefined) {
+                continue;
+            }
+
+            const value = getDigitByCellData(valueData, context, currentCell);
+
+            if (value === undefined) {
+                continue;
+            }
+
+            values.add(value);
+
+            if (values.size > 3) {
+                return false;
+            }
+        }
+
+        return true;
+    },
+});
+
 export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
     noIndex: false,
     slug: "sudoku-chain-4",
@@ -259,6 +300,20 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
             }
         }
 
+        const bottomSudokuDiagonalConstraints: Constraint<NumberPTM>[] = [];
+        bottomSudokuDiagonalConstraints.push(
+            MaxThreeValuesConstraint(
+                Array.from({ length: 9 }, (_, i) => cell(12 + i, 6 + i)),
+                "bottom sudoku diagonal 1 max three values",
+            ),
+        );
+        bottomSudokuDiagonalConstraints.push(
+            MaxThreeValuesConstraint(
+                Array.from({ length: 9 }, (_, i) => cell(12 + i, 14 - i)),
+                "bottom sudoku diagonal 2 max three values",
+            ),
+        );
+
         return {
             ...puzzle,
             disableSudokuRules: true,
@@ -268,6 +323,7 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
                 ...topSudokuDiagonalConstraints,
                 ...leftSudokuNonConsecutiveConstraints,
                 ...rightSudokuNoXVConstraints,
+                ...bottomSudokuDiagonalConstraints,
             ],
 
             title: {
