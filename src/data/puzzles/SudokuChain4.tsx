@@ -205,6 +205,22 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
             return result;
         });
 
+        const topSudokuDiagonalConstraints: Constraint<NumberPTM>[] = [];
+        topSudokuDiagonalConstraints.push(
+            RegionConstraint(
+                Array.from({ length: 9 }, (_, i) => cell(i, 6 + i)),
+                false,
+                "top sudoku diagonal 1",
+            ),
+        );
+        topSudokuDiagonalConstraints.push(
+            RegionConstraint(
+                Array.from({ length: 9 }, (_, i) => cell(i, 14 - i)),
+                false,
+                "top sudoku diagonal 2",
+            ),
+        );
+
         const leftSudokuNonConsecutiveConstraints: Constraint<NumberPTM>[] = [];
         for (let r = 0; r < 9; r++) {
             for (let c = 0; c < 9; c++) {
@@ -249,6 +265,7 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
 
             items: [
                 ...sudokuRowColumnConstraints,
+                ...topSudokuDiagonalConstraints,
                 ...leftSudokuNonConsecutiveConstraints,
                 ...rightSudokuNoXVConstraints,
             ],
