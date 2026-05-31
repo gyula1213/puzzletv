@@ -35,6 +35,8 @@ const solution = [
     [undefined, undefined, undefined, undefined, undefined, undefined, 8, 6, 4, 7, 2, 1, 5, 9, 3, undefined, undefined, undefined, undefined, undefined, undefined],
 ];
 
+// const initialDigits = solution; // Kipróbálni, hogy a megoldás jól van-e feltöltve
+
 const initialDigits = [
     [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 7, undefined, undefined, undefined, 3, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
     [undefined, undefined, undefined, undefined, undefined, undefined, 4, undefined, undefined, 1, undefined, 3, undefined, undefined, 5, undefined, undefined, undefined, undefined, undefined, undefined],
@@ -105,6 +107,41 @@ const NonConsecutivePairConstraint = (
     },
 });
 
+const NoXVPairConstraint = (
+    cell1: Position,
+    cell2: Position,
+): Constraint<NumberPTM> => ({
+    name: "right sudoku noXV pair",
+    cells: [cell1, cell2],
+    props: undefined,
+    isObvious: true,
+
+    isValidCell(cell, digits, cells, context) {
+        const [firstCell, secondCell] = cells;
+        const otherCell = cell.top === firstCell.top && cell.left === firstCell.left ? secondCell : firstCell;
+
+        const valueData = digits[cell.top]?.[cell.left];
+        const otherValueData = digits[otherCell.top]?.[otherCell.left];
+
+        if (valueData === undefined || otherValueData === undefined) {
+            return true;
+        }
+
+        const {
+            typeManager: { getDigitByCellData },
+        } = context.puzzle;
+
+        const value = getDigitByCellData(valueData, context, cell);
+        const otherValue = getDigitByCellData(otherValueData, context, otherCell);
+
+        if (value === undefined || otherValue === undefined) {
+            return true;
+        }
+
+        return value + otherValue !== 5 && value + otherValue !== 10;
+    },
+});
+
 export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
     noIndex: false,
     slug: "sudoku-chain-4",
@@ -169,7 +206,6 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
         });
 
         const leftSudokuNonConsecutiveConstraints: Constraint<NumberPTM>[] = [];
-
         for (let r = 0; r < 9; r++) {
             for (let c = 0; c < 9; c++) {
                 const current = cell(6 + r, c);
@@ -188,6 +224,25 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
             }
         }
 
+        const rightSudokuNoXVConstraints: Constraint<NumberPTM>[] = [];
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                const current = cell(6 + r, 12 + c);
+
+                if (c < 8) {
+                    rightSudokuNoXVConstraints.push(
+                        NoXVPairConstraint(current, cell(6 + r, 12 + c + 1)),
+                    );
+                }
+
+                if (r < 8) {
+                    rightSudokuNoXVConstraints.push(
+                        NoXVPairConstraint(current, cell(6 + r + 1, 12 + c)),
+                    );
+                }
+            }
+        }
+
         return {
             ...puzzle,
             disableSudokuRules: true,
@@ -195,6 +250,7 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
             items: [
                 ...sudokuRowColumnConstraints,
                 ...leftSudokuNonConsecutiveConstraints,
+                ...rightSudokuNoXVConstraints,
             ],
 
             title: {
