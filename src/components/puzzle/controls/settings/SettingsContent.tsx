@@ -197,6 +197,7 @@ export const SettingsContent = observer(function SettingsContent<T extends AnyPT
                                     [LanguageCode.en]: "Check obvious logic",
                                     [LanguageCode.ru]: "Проверять очевидную логику",
                                     [LanguageCode.de]: "Die offensichtliche Logik",
+                                            [LanguageCode.hu]: "Ellenőrizd a nyilvánvaló logikát",
                                 })}
                             </option>
                             <option value={PencilmarksCheckerMode.CheckAll}>
@@ -204,6 +205,7 @@ export const SettingsContent = observer(function SettingsContent<T extends AnyPT
                                     [LanguageCode.en]: "Check all",
                                     [LanguageCode.ru]: "Проверять всё",
                                     [LanguageCode.de]: "Alle überprüfen",
+                                            [LanguageCode.hu]: "Mindent ellenőriz",
                                 })}
                             </option>
                         </SettingsSelect>
@@ -264,6 +266,7 @@ export const SettingsContent = observer(function SettingsContent<T extends AnyPT
                     [LanguageCode.en]: "Simplified graphics",
                     [LanguageCode.ru]: "Упрощенная графика",
                     [LanguageCode.de]: "Vereinfachte Grafiken",
+                    [LanguageCode.hu]: "Egyszerűsített grafika",
                 })}
                 :
                 <SettingsCheckbox

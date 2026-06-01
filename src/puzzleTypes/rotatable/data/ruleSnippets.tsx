@@ -20,4 +20,9 @@ export const rotatableSudokuRules: Translatable<ReactNode> = {
             Ausrichtung des Rätsels zu bestimmen.
         </>
     ),
+    [LanguageCode.hu]: (
+        <>
+            <strong>A sudoku rács óramutató járásával egyezően elforgatható.</strong> A rejtvény helyes tájolását neked kell meghatároznod.
+        </>
+    ),
 };

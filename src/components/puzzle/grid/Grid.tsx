@@ -477,6 +477,7 @@ export const Grid = observer(function GridFc<T extends AnyPTM>({ context, rect }
                         [LanguageCode.en]: "No fog reveal mode on!",
                         [LanguageCode.ru]: "Режим без раскрытия тумана включен!",
                         [LanguageCode.de]: "Kein-Nebel-Enthüllungsmodus aktiviert!",
+                        [LanguageCode.hu]: "Nincs-köd-felfedés mód engedélyezve!",
                     })}
                 </Absolute>
             )}

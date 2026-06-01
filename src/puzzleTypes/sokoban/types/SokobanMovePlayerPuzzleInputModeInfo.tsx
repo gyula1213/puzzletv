@@ -244,6 +244,7 @@ const ButtonComponent = observer(function ButtonFc({ context, top, left }: Contr
                     [LanguageCode.en]: "Move the sokoban player",
                     [LanguageCode.ru]: "Двигать игрока",
                     [LanguageCode.de]: "Bewegen Sie den Sokoban-Spieler",
+                    [LanguageCode.hu]: "Mozgasd a sokoban játékost",
                 })} (${translate("shortcut")}: ${base.hotKeyStr})`}
             />
 
@@ -297,6 +298,8 @@ const ButtonComponent = observer(function ButtonFc({ context, top, left }: Contr
                             [LanguageCode.ru]: "Используйте клавиши AWSD для управления игроком при вводе цифр",
                             [LanguageCode.de]:
                                 "Hinweis: Sie können den Player mit den Tasten A/W/S/D bewegen, während Sie sich im Ziffernmodus befinden",
+                            [LanguageCode.hu]:
+                                "Megjegyzés: használhatod az A/W/S/D billentyűket a játékos mozgatásához, miközben számok bevitelében vagy",
                         })}
                     </Absolute>
                 </>

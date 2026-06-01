@@ -208,12 +208,16 @@ export const Rules = observer(function Rules<T extends AnyPTM>({ rect, context }
                         [LanguageCode.de]:
                             "Aktivieren Sie diese Option, um das Raster sicher zu ändern, ohne den Nebel sichtbar zu machen.\n" +
                             "Alle in diesem Modus ausgeführten Aktionen werden nach dem Deaktivieren rückgängig gemacht.",
+                        [LanguageCode.hu]:
+                            "Kapcsold be, hogy biztonságosan módosíthasd a rácsot a köd feltárása nélkül.\n" +
+                            "Minden ezen a módban végrehajtott művelet vissza lesz vonva a kikapcsolás után.",
                     })}
                 >
                     {translate({
                         [LanguageCode.en]: "No fog reveal mode",
                         [LanguageCode.ru]: "Режим без раскрытия тумана",
                         [LanguageCode.de]: "Kein-Nebel-Enthüllungsmodus",
+                        [LanguageCode.hu]: "Nincs-köd-felfedés mód",
                     })}{" "}
                     <span
                         style={{

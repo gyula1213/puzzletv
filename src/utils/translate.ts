@@ -1,5 +1,5 @@
 import { translations } from "../data/translations";
-import { allLanguageCodes } from "../types/translations/LanguageCode";
+import { allLanguageCodes, LanguageCode } from "../types/translations/LanguageCode";
 import { PartiallyTranslatable } from "../types/translations/Translatable";
 import { TranslationItem } from "../types/translations/TranslationItem";
 import { settings } from "../types/layout/Settings";
@@ -7,8 +7,13 @@ import { settings } from "../types/layout/Settings";
 export const translate = <T = string>(phrase: PartiallyTranslatable<T>, languageCode = settings.languageCode): T => {
     if (typeof phrase === "string") {
         // phrase is a key of the dictionary item, T is string
-        const result: string = translations[phrase][languageCode] || phrase;
-        return result as any as T;
+        const phraseTranslations = translations[phrase];
+        if (!phraseTranslations) {
+            return phrase as any as T;
+        }
+
+        const result: string =
+            phraseTranslations[languageCode as Exclude<LanguageCode, LanguageCode.en>] || phrase;        return result as any as T;
     } else {
         // phrase is a map of translations, T is any
         return phrase[languageCode] || phrase.en;

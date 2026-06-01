@@ -108,6 +108,40 @@ const flags: Record<LanguageCode, ReactElement> = {
             />
         </>
     ),
+    [LanguageCode.hu]: (
+        <>
+            <div
+                style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    height: "33%",
+                    background: "#ce1126",
+                }}
+            />
+            <div
+                style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    top: "33%",
+                    height: "34%",
+                    background: "#ffffff",
+                }}
+            />
+            <div
+                style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    top: "67%",
+                    height: "33%",
+                    background: "#00966e",
+                }}
+            />
+        </>
+    ),
     [LanguageCode.ru]: (
         <>
             <div

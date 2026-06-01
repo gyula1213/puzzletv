@@ -51,6 +51,7 @@ export const RushHourHideCarsButton = observer(function RushHourHideCarsButtonFc
                 [LanguageCode.en]: "show the cars",
                 [LanguageCode.ru]: "показывать машины",
                 [LanguageCode.de]: "die Autos zeigen",
+                [LanguageCode.hu]: "autók mutatása",
             })} (${translate("shortcut")}: H)`}
         >
             {(contentSize) => (

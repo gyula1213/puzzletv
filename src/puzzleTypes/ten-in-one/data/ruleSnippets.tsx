@@ -14,6 +14,10 @@ export const tenInOneStage1Rules: Translatable = {
         "Jede 3x3-Box ist ein separates kleines Puzzle. " +
         "Platzieren Sie in jeder Zeile und Spalte der 3x3-Boxen drei verschiedene Ziffern von 1 bis 9 so, dass alle Einschränkungen innerhalb der Box erfüllt sind. " +
         "Diese drei Ziffern können in jedem Feld unterschiedlich sein",
+    [LanguageCode.hu]:
+        "Minden 3x3 mező egy külön kis rejtvény. " +
+        "Helyezz három különböző számot 1–9 között minden 3x3 mező sorába és oszlopába úgy, hogy a mezőn belüli összes megszorítás teljesüljön. " +
+        "Ezek a három szám mezőnként eltérőek lehetnek",
 };
 
 export const tenInOneMultiBoxLineRules: Translatable = {
@@ -23,4 +27,6 @@ export const tenInOneMultiBoxLineRules: Translatable = {
         "Кроме того, при решении отдельных квадратов как абстрактных 3x3 игнорируйте сегменты линий между ячейками в разных квадратах",
     [LanguageCode.de]:
         "Wenn Sie einzelne Kästchen als abstrakte 3x3 auflösen, ignorieren Sie außerdem Liniensegmente zwischen Zellen in verschiedenen Kästchen",
+    [LanguageCode.hu]:
+        "Amikor az egyes mezőket absztrakt 3x3-ként oldod meg, hagyd figyelmen kívül a vonalszegmenseket a különböző mezők közötti cellák között",
 };

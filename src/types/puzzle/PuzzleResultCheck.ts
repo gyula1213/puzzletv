@@ -56,6 +56,7 @@ export const successResultCheck = <T extends AnyPTM>(context: PuzzleContext<T>):
             [LanguageCode.en]: "Absolutely right!",
             [LanguageCode.ru]: "Совершенно верно!",
             [LanguageCode.de]: "Absolut richtig!",
+            [LanguageCode.hu]: "Tökéletes!",
         }),
 });
 
@@ -71,6 +72,7 @@ export const notFinishedResultCheck = (): PuzzleResultCheck => {
             [LanguageCode.en]: "The puzzle is not finished yet",
             [LanguageCode.ru]: "Головоломка еще не завершена",
             [LanguageCode.de]: "Das Puzzle ist noch nicht fertig",
+            [LanguageCode.hu]: "A rejtvény még nincs kész",
         }),
     };
 };
@@ -86,6 +88,7 @@ export const errorResultCheck = (): PuzzleResultCheck => {
             [LanguageCode.en]: "Something's wrong here...",
             [LanguageCode.ru]: "Что-то тут не так...",
             [LanguageCode.de]: "Irgendetwas ist hier falsch...",
+            [LanguageCode.hu]: "Valami nem stimmel itt...",
         }),
     };
 };

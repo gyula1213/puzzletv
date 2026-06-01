@@ -14,6 +14,7 @@ export const TetrisTypeManager = (options: PuzzleImportOptions): PuzzleTypeManag
                 [LanguageCode.en]: "For active tetris figure",
                 [LanguageCode.ru]: "Для активной тетрисной фигуры",
                 [LanguageCode.de]: "Für aktives Tetris-Figur",
+                [LanguageCode.hu]: "Az aktív tetris alakhoz",
             },
             dragPieceToMove: (rotatable) => ({
                 [LanguageCode.en]:
@@ -25,11 +26,15 @@ export const TetrisTypeManager = (options: PuzzleImportOptions): PuzzleTypeManag
                 [LanguageCode.de]:
                     "Ziehen Sie das Tetris-Figur, um es zu verschieben, klicken Sie darauf, um es zu fokussieren" +
                     (rotatable ? ", und klicken Sie erneut, um es zu drehen" : ""),
+                [LanguageCode.hu]:
+                    "Húzd a tetris alakot a mozgatáshoz, kattints rá a fókuszáláshoz" +
+                    (rotatable ? ", kattints újra a forgatáshoz" : ""),
             }),
             dragModeTitle: {
                 [LanguageCode.en]: "Move the grid and the tetris figures",
                 [LanguageCode.ru]: "Двигать поле и тетрисные фигуры",
                 [LanguageCode.de]: "Bewegen Sie das Gitter und die Tetris-Figuren",
+                [LanguageCode.hu]: "Mozgasd a rácsot és a tetris alakokat",
             },
         },
         getPieceCenter: ({ cells, boundingRect }) => {

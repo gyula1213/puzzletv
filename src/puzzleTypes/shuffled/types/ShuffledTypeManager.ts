@@ -16,6 +16,7 @@ export const ShuffledTypeManager = (options: PuzzleImportOptions): PuzzleTypeMan
                 [LanguageCode.en]: "For active clue",
                 [LanguageCode.ru]: "Для активной фигуры",
                 [LanguageCode.de]: "Für aktives Figur",
+                [LanguageCode.hu]: "Az aktív figura számára",
             },
             dragPieceToMove: (rotatable) => ({
                 [LanguageCode.en]:
@@ -26,11 +27,15 @@ export const ShuffledTypeManager = (options: PuzzleImportOptions): PuzzleTypeMan
                 [LanguageCode.de]:
                     "Ziehen Sie das Figur, um es zu verschieben, klicken Sie darauf, um es zu fokussieren" +
                     (rotatable ? ", und klicken Sie erneut, um es zu drehen" : ""),
+                [LanguageCode.hu]:
+                    "Húzd a figurát a mozgatáshoz, kattints rá a fókuszáláshoz" +
+                    (rotatable ? ", kattints újra a forgatáshoz" : ""),
             }),
             dragModeTitle: {
                 [LanguageCode.en]: "Move the grid and the clues",
                 [LanguageCode.ru]: "Двигать поле и фигуры",
                 [LanguageCode.de]: "Bewegen Sie das Gitter und die Figuren",
+                [LanguageCode.hu]: "Mozgasd a rácsot és a figurákat",
             },
         },
     });

@@ -23,6 +23,7 @@ export const TesseractSettings = observer(function TesseractSettings<T extends A
                     [LanguageCode.en]: "Highlight cells seen by tesseract",
                     [LanguageCode.ru]: "Подсвечивать клетки, видимые тессерактом",
                     [LanguageCode.de]: "Markieren Sie die von Tesseract gesehenen Zellen",
+                    [LanguageCode.hu]: "A tesseract által látott cellák kiemelése",
                 })}
                 :
             </span>
@@ -37,6 +38,7 @@ export const TesseractSettings = observer(function TesseractSettings<T extends A
                         [LanguageCode.en]: "Always",
                         [LanguageCode.ru]: "Всегда",
                         [LanguageCode.de]: "Immer",
+                            [LanguageCode.hu]: "Mindig",
                     })}
                 </option>
                 <option value={TesseractHighlightType.Clues}>
@@ -44,6 +46,7 @@ export const TesseractSettings = observer(function TesseractSettings<T extends A
                         [LanguageCode.en]: "Only circles",
                         [LanguageCode.ru]: "Только круги",
                         [LanguageCode.de]: "Nur Kreise",
+                            [LanguageCode.hu]: "Csak körök",
                     })}
                 </option>
                 <option value={TesseractHighlightType.Never}>
@@ -51,6 +54,7 @@ export const TesseractSettings = observer(function TesseractSettings<T extends A
                         [LanguageCode.en]: "Never",
                         [LanguageCode.ru]: "Никогда",
                         [LanguageCode.de]: "Nie",
+                            [LanguageCode.hu]: "Soha",
                     })}
                 </option>
             </SettingsSelect>
