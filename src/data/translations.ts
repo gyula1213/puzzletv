@@ -6,7 +6,7 @@ export const translationsExactType = {
     by: {
         [LanguageCode.ru]: "от",
         [LanguageCode.de]: "von",
-        [LanguageCode.hu]: "által",
+        [LanguageCode.hu]: "",
     },
     you: {
         [LanguageCode.ru]: "Вы",
@@ -321,12 +321,12 @@ export const translationsExactType = {
     Undo: {
         [LanguageCode.ru]: "Отмена",
         [LanguageCode.de]: "Rückg.",
-        [LanguageCode.hu]: "Visszavonás",
+        [LanguageCode.hu]: "Vissza",
     },
     Redo: {
         [LanguageCode.ru]: "Повтор",
         [LanguageCode.de]: "Wdh.",
-        [LanguageCode.hu]: "Ismétlés",
+        [LanguageCode.hu]: "Újra",
     },
     "Check the result": {
         [LanguageCode.ru]: "Проверить результат",
@@ -396,7 +396,7 @@ export const translationsExactType = {
     "All progress will be lost": {
         [LanguageCode.ru]: "Весь прогресс будет потерян",
         [LanguageCode.de]: "Sämtliche Fortschritte gehen verloren",
-        [LanguageCode.hu]: "Minden előrehaladás elveszik",
+        [LanguageCode.hu]: "Minden változtatás elveszik",
     },
     "You can't restart the game because you're not hosting it": {
         [LanguageCode.ru]: "Вы не можете начать игру заново, потому что вы не являетесь организатором игры",

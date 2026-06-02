@@ -80,6 +80,9 @@ import {
 } from "./FractionalSudoku";
 import { NarrowEscapeBoss, NarrowEscapeIntro } from "./NarrowEscape";
 import { TheCode } from "./TheCode";
+import { PzlJsonSudoku } from "./PzlJsonSudoku";
+import { PzlJsonLumenSudoku } from "./PzlJsonLumenSudoku";
+import { PzlGeneratedTesztSudoku } from "./pzl/examples/PzlGeneratedTesztSudoku";
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     // region Empty
@@ -136,6 +139,9 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     JsTest,
     TesztSudoku,
     SudokuChain4,
+    PzlJsonSudoku,
+    PzlJsonLumenSudoku,
+    PzlGeneratedTesztSudoku,
 
     PeaucellierLipkinLinkage,
 
