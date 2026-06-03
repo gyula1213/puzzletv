@@ -13,15 +13,17 @@ const assertSquareMatrix = (name: string, matrix: unknown[][], size: number) => 
 };
 
 /**
- * Minimal generated-PZL parser for PuzzleTV.
+ * Generated-PZL parser for PuzzleTV.
  *
- * First version supports only plain 9x9 Sudoku:
+ * Current scope:
+ *   - normal 9x9 Sudoku
  *   - title/author/rules
  *   - predef -> givens
  *   - solution -> solution digits
  *   - normal Sudoku rules and 3x3 regions
- *
- * Later this class can be extended with cages, arrows, fog, etc.
+ *   - optional killer cages
+ *   - optional arrows
+ *   - optional fog / lumen start cells
  */
 export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuData> {
     constructor(puzzleJson: PzlGeneratedSudokuData) {
@@ -38,7 +40,7 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
         );
 
         if (size !== 9) {
-            throw new Error("PzlJsonGridParser v1 supports only size=9");
+            throw new Error("PzlJsonGridParser currently supports only size=9");
         }
 
         assertSquareMatrix("predef", puzzleJson.predef, size);
@@ -47,6 +49,14 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
 
     override get hasSolution() {
         return true;
+    }
+
+    override get hasFog() {
+        return !!this.puzzleJson.fog;
+    }
+
+    override get hasArrows() {
+        return !!this.puzzleJson.arrows?.length;
     }
 
     override addToImporter(importer: PuzzleImporter<NumberPTM>) {
@@ -81,6 +91,22 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
                     importer.addGiven(this, top, left, value);
                 }
             }
+        }
+
+        // Optional killer cages.
+        for (const cage of puzzleJson.cages ?? []) {
+            importer.addKillerCage(this, cage.cells, cage.sum);
+        }
+
+        // Optional arrows.
+        for (const arrow of puzzleJson.arrows ?? []) {
+            const circleCells = Array.isArray(arrow.circle) ? arrow.circle : [arrow.circle];
+            importer.addArrow(this, circleCells, arrow.line);
+        }
+
+        // Optional fog / lumen configuration.
+        if (puzzleJson.fog) {
+            importer.addFog(this, puzzleJson.fog);
         }
     }
 }

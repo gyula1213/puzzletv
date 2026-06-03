@@ -83,6 +83,7 @@ import { TheCode } from "./TheCode";
 import { PzlJsonSudoku } from "./PzlJsonSudoku";
 import { PzlJsonLumenSudoku } from "./PzlJsonLumenSudoku";
 import { PzlGeneratedTesztSudoku } from "./pzl/examples/PzlGeneratedTesztSudoku";
+import { PzlGeneratedLumosMaxima } from "./pzl/examples/PzlGeneratedLumosMaxima";
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     // region Empty
@@ -142,6 +143,7 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     PzlJsonSudoku,
     PzlJsonLumenSudoku,
     PzlGeneratedTesztSudoku,
+    PzlGeneratedLumosMaxima,
 
     PeaucellierLipkinLinkage,
 
