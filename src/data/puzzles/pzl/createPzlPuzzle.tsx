@@ -8,6 +8,7 @@ import { PzlGeneratedSudokuData } from "./PzlPuzzleTypes";
 
 export const createPzlPuzzleDefinition = (data: PzlGeneratedSudokuData) => {
     const parser = new PzlJsonGridParser(data);
+
     const importOptions = {
         title: data.title,
         author: data.author,
@@ -29,6 +30,7 @@ export const createPzlPuzzleDefinition = (data: PzlGeneratedSudokuData) => {
         noIndex: false,
         slug: data.slug,
         saveStateKey: data.slug,
+        typeManager: DigitPuzzleTypeManager(),
     };
 };
 
@@ -40,5 +42,6 @@ export const createPzlPuzzle = (
 ): PuzzleDefinitionLoader<NumberPTM> => ({
     noIndex: false,
     slug: data.slug,
+
     loadPuzzle: () => createPzlPuzzleDefinition(data),
 });

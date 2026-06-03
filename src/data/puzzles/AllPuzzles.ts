@@ -84,6 +84,8 @@ import { PzlJsonSudoku } from "./PzlJsonSudoku";
 import { PzlJsonLumenSudoku } from "./PzlJsonLumenSudoku";
 import { PzlGeneratedTesztSudoku } from "./pzl/examples/PzlGeneratedTesztSudoku";
 import { PzlGeneratedLumosMaxima } from "./pzl/examples/PzlGeneratedLumosMaxima";
+import { IBSumAround6 } from "./pzl/ib/IBSumAround6";
+
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     // region Empty
@@ -145,8 +147,9 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     PzlGeneratedTesztSudoku,
     PzlGeneratedLumosMaxima,
 
-    PeaucellierLipkinLinkage,
+    IBSumAround6,
 
+    PeaucellierLipkinLinkage,
     CaterpillarPoc,
 
     BodoniSudoku,

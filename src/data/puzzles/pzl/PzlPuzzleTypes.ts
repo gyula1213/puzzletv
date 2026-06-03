@@ -33,6 +33,13 @@ export type PzlGeneratedFog = {
     bulbCells?: PositionLiteral[];
 };
 
+export type PzlGeneratedOutsideClues = {
+    top?: (number | undefined)[];
+    bottom?: (number | undefined)[];
+    left?: (number | undefined)[];
+    right?: (number | undefined)[];
+};
+
 export type PzlGeneratedSudokuData = {
     /** Human-readable title shown by PuzzleTV. Usually generated from Name: */
     title: string;
@@ -43,8 +50,12 @@ export type PzlGeneratedSudokuData = {
     /** PuzzleTV URL slug. Can be generated from Name: when missing. */
     slug: string;
 
-    /** Sudoku size. First version supports 9 only. */
+    /** Sudoku size. */
     size?: number;
+
+    /** Box dimensions for non-9x9 sudokus, e.g. 6x6 = 3x2. */
+    boxWidth?: number;
+    boxHeight?: number;
 
     /** 0/null/undefined = empty cell, positive number = given. */
     predef: PzlCellValue[][];
@@ -60,6 +71,9 @@ export type PzlGeneratedSudokuData = {
 
     /** Optional arrows. */
     arrows?: PzlGeneratedArrow[];
+
+    /** Optional outside clues generated from Info-up / Info-left etc. */
+    outsideClues?: PzlGeneratedOutsideClues;
 
     /** Optional fog / lumen configuration. */
     fog?: PzlGeneratedFog;
