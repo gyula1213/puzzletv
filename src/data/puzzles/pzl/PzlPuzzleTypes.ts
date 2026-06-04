@@ -9,6 +9,13 @@ import { PositionLiteral } from "../../../types/layout/Position";
 
 export type PzlCellValue = number | 0 | null | undefined;
 
+export type PzlOutsideClueValue = number | number[] | undefined;
+
+export type PzlOutsideClueType =
+    | "sum-around-6"
+    | "japanese-even-odd-sums"
+    | "skyscraper";
+
 export type PzlGeneratedCage = {
     cells: PositionLiteral[];
     sum?: number;
@@ -34,10 +41,10 @@ export type PzlGeneratedFog = {
 };
 
 export type PzlGeneratedOutsideClues = {
-    top?: (number | undefined)[];
-    bottom?: (number | undefined)[];
-    left?: (number | undefined)[];
-    right?: (number | undefined)[];
+    top?: PzlOutsideClueValue[];
+    bottom?: PzlOutsideClueValue[];
+    left?: PzlOutsideClueValue[];
+    right?: PzlOutsideClueValue[];
 };
 
 export type PzlGeneratedSudokuData = {
@@ -74,6 +81,9 @@ export type PzlGeneratedSudokuData = {
 
     /** Optional outside clues generated from Info-up / Info-left etc. */
     outsideClues?: PzlGeneratedOutsideClues;
+
+    /** Which outside-clue rule should be used for this puzzle. */
+    outsideClueType?: PzlOutsideClueType;
 
     /** Optional fog / lumen configuration. */
     fog?: PzlGeneratedFog;
