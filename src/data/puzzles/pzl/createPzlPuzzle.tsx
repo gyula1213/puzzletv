@@ -4,16 +4,34 @@ import { PuzzleImportOptions } from "../../../types/puzzle/PuzzleImportOptions";
 import { DigitPuzzleTypeManager } from "../../../puzzleTypes/default/types/DigitPuzzleTypeManager";
 import { CellColor } from "../../../types/puzzle/CellColor";
 import { Constraint } from "../../../types/puzzle/Constraint";
-import { Position } from "../../../types/layout/Position";
+import { Position, PositionLiteral } from "../../../types/layout/Position";
 import { RegionConstraint } from "../../../components/puzzle/constraints/region/Region";
 import { CodedZonesConstraint } from "../../../components/puzzle/constraints/coded-zones/CodedZones";
 import { RoundingCageConstraint } from "../../../components/puzzle/constraints/rounding-cage/RoundingCage";
 import { LiarCellConstraint } from "../../../components/puzzle/constraints/liar-cell/LiarCell";
+import { CloneRegionsConstraint } from "../../../components/puzzle/constraints/clone-regions/CloneRegions";
 import { PuzzleImporter } from "../PuzzleImporter";
 import { PzlJsonGridParser } from "./PzlJsonGridParser";
 import { PzlGeneratedSudokuData } from "./PzlPuzzleTypes";
 
 const cell = (top: number, left: number): Position => ({ top, left });
+
+const parseCellLiteral = (literal: PositionLiteral): Position => {
+    if (typeof literal !== "string") {
+        return literal;
+    }
+
+    const match = /^R(-?\d+)C(-?\d+)$/.exec(literal);
+
+    if (!match) {
+        throw new Error(`Invalid position literal: ${literal}`);
+    }
+
+    return {
+        top: Number(match[1]) - 1,
+        left: Number(match[2]) - 1,
+    };
+};
 
 const getDiagonalConstraints = (size: number): Constraint<NumberPTM>[] => [
     RegionConstraint(
@@ -41,6 +59,39 @@ const getDiagonalColors = (size: number) => {
     }
 
     return initialColors;
+};
+
+const getCloneColors = (data: PzlGeneratedSudokuData) => {
+    const initialColors: Record<number, Record<number, CellColor[]>> = {};
+
+    for (const cloneRegion of data.cloneRegions ?? []) {
+        for (const literal of cloneRegion.cells) {
+            const { top, left } = parseCellLiteral(literal);
+            const row = initialColors[top] ?? {};
+
+            row[left] = [CellColor.lightGrey];
+            initialColors[top] = row;
+        }
+    }
+
+    return initialColors;
+};
+
+const mergeInitialColors = (
+    ...colorMaps: (Record<number, Record<number, CellColor[]>> | undefined)[]
+) => {
+    const result: Record<number, Record<number, CellColor[]>> = {};
+
+    for (const colorMap of colorMaps) {
+        for (const [rowKey, rowValue] of Object.entries(colorMap ?? {})) {
+            result[Number(rowKey)] = {
+                ...(result[Number(rowKey)] ?? {}),
+                ...rowValue,
+            };
+        }
+    }
+
+    return result;
 };
 
 const createPairConstraint = (
@@ -158,20 +209,30 @@ const getExtraConstraints = (data: PzlGeneratedSudokuData): Constraint<NumberPTM
         result.push(LiarCellConstraint(liarCell));
     }
 
+    if (data.cloneRegions?.length) {
+        result.push(CloneRegionsConstraint(data.cloneRegions));
+    }
+
     return result;
 };
+
+const getExtraColors = (data: PzlGeneratedSudokuData) =>
+    mergeInitialColors(
+        data.diagonal ? getDiagonalColors(data.size ?? 9) : undefined,
+        data.cloneRegions?.length ? getCloneColors(data) : undefined,
+    );
 
 const addExtraConstraintSupport = (
     puzzle: ReturnType<PuzzleImporter<NumberPTM>["finalize"]>,
     data: PzlGeneratedSudokuData,
 ) => {
     const extraConstraints = getExtraConstraints(data);
+    const extraColors = getExtraColors(data);
 
-    if (!extraConstraints.length && !data.diagonal) {
+    if (!extraConstraints.length && !Object.keys(extraColors).length) {
         return puzzle;
     }
 
-    const size = data.size ?? 9;
     const originalItems = puzzle.items;
 
     return {
@@ -190,15 +251,10 @@ const addExtraConstraintSupport = (
                 ...extraConstraints,
             ],
 
-        // The SudokuChain4 implementation used the same light-grey highlighting
-        // for diagonal sudoku. Keep the same visual convention here. Other
-        // extra constraints do not change the visual appearance.
-        initialColors: data.diagonal
-            ? ({
-                ...(puzzle.initialColors ?? {}),
-                ...getDiagonalColors(size),
-            } as any)
-            : puzzle.initialColors,
+        initialColors: {
+            ...(puzzle.initialColors ?? {}),
+            ...extraColors,
+        } as any,
     };
 };
 

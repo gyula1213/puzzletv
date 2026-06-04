@@ -93,6 +93,7 @@ import { IBNonConsecutive } from "./pzl/ib/IBNonConsecutive";
 import { IBCodedZones } from "./pzl/ib/IBCodedZones";
 import { IBRounding } from "./pzl/ib/IBRounding";
 import { IBLiar } from "./pzl/ib/IBLiar";
+import { IBClone } from "./pzl/ib/IBClone";
 
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
@@ -164,6 +165,7 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     IBCodedZones,
     IBRounding,
     IBLiar,
+    IBClone,
 
     PeaucellierLipkinLinkage,
     CaterpillarPoc,

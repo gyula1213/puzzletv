@@ -35,6 +35,10 @@ export type PzlGeneratedLiarCell = {
     value: number;
 };
 
+export type PzlGeneratedCloneRegion = {
+    cells: PositionLiteral[];
+};
+
 export type PzlGeneratedArrow = {
     /** One-cell circles are represented by a single position. */
     circle: PositionLiteral | PositionLiteral[];
@@ -148,6 +152,14 @@ export type PzlGeneratedSudokuData = {
      * than the small clue shown in the cell.
      */
     liarCells?: PzlGeneratedLiarCell[];
+
+    /**
+     * Optional clone regions.
+     *
+     * The listed regions must have the same shape and the same digits in the
+     * same relative positions. They are also highlighted in light grey.
+     */
+    cloneRegions?: PzlGeneratedCloneRegion[];
 
     /** Optional arrows. */
     arrows?: PzlGeneratedArrow[];
