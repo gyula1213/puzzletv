@@ -1,12 +1,5 @@
 import { PositionLiteral } from "../../../types/layout/Position";
 
-/**
- * Minimal PZL -> PuzzleTV intermediate data model.
- *
- * This file is intentionally simple: it describes the data shape that can be
- * generated mechanically from a .pzl file. It does not parse .pzl itself.
- */
-
 export type PzlCellValue = number | 0 | null | undefined;
 
 export type PzlOutsideClueValue = number | number[] | undefined;
@@ -63,6 +56,15 @@ export type PzlGeneratedSudokuData = {
     /** Box dimensions for non-9x9 sudokus, e.g. 6x6 = 3x2. */
     boxWidth?: number;
     boxHeight?: number;
+
+    /**
+     * Optional custom region map.
+     *
+     * If this is present, it overrides the default rectangular box regions.
+     * Region ids may come directly from PZL, so both 0-based and 1-based ids are
+     * tolerated by the importer layer.
+     */
+    regions?: number[][];
 
     /** 0/null/undefined = empty cell, positive number = given. */
     predef: PzlCellValue[][];

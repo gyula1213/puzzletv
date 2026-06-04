@@ -30,6 +30,24 @@ const asNumberArray = (value: PzlOutsideClueValue): number[] => {
 const reversePositions = (positions: PositionLiteral[]) =>
     [...positions].reverse();
 
+const normalizeRegionMap = (regions: number[][]) => {
+    const minValue = Math.min(...regions.flat());
+
+    // PZL region ids are usually 1-based. PuzzleTV region ids are happier as
+    // 0-based integers, but the exact labels are not meaningful as long as equal
+    // cells keep the same id.
+    return minValue === 1
+        ? regions.map((row) => row.map((value) => value - 1))
+        : regions;
+};
+
+const createBoxRegionMap = (size: number, boxWidth: number, boxHeight: number) =>
+    Array.from({ length: size }, (_row, top) =>
+        Array.from({ length: size }, (_col, left) =>
+            Math.floor(top / boxHeight) * Math.ceil(size / boxWidth) + Math.floor(left / boxWidth),
+        ),
+    );
+
 const addSingleOutsideClue = (
     importer: PuzzleImporter<NumberPTM>,
     gridParser: PzlJsonGridParser,
@@ -167,6 +185,10 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
 
         assertSquareMatrix("predef", puzzleJson.predef, size);
         assertSquareMatrix("solution", puzzleJson.solution, size);
+
+        if (puzzleJson.regions) {
+            assertSquareMatrix("regions", puzzleJson.regions, size);
+        }
     }
 
     override get hasSolution() {
@@ -195,11 +217,9 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
 
         importer.addRegions(
             this,
-            Array.from({ length: size }, (_row, top) =>
-                Array.from({ length: size }, (_col, left) =>
-                    Math.floor(top / boxHeight) * Math.ceil(size / boxWidth) + Math.floor(left / boxWidth),
-                ),
-            ),
+            puzzleJson.regions
+                ? normalizeRegionMap(puzzleJson.regions)
+                : createBoxRegionMap(size, boxWidth, boxHeight),
         );
 
         for (let top = 0; top < size; top++) {

@@ -86,6 +86,7 @@ import { PzlGeneratedTesztSudoku } from "./pzl/examples/PzlGeneratedTesztSudoku"
 import { PzlGeneratedLumosMaxima } from "./pzl/examples/PzlGeneratedLumosMaxima";
 import { IBSumAround6 } from "./pzl/ib/IBSumAround6";
 import { IBJapaneseEvenOddSums } from "./pzl/ib/IBJapaneseEvenOddSums";
+import { IBJigsaw } from "./pzl/ib/IBJigsaw";
 
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
@@ -150,6 +151,8 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
 
     IBSumAround6,
     IBJapaneseEvenOddSums,
+    IBJigsaw,
+
 
     PeaucellierLipkinLinkage,
     CaterpillarPoc,
