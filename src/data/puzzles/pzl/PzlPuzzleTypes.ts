@@ -39,6 +39,8 @@ export type PzlGeneratedCloneRegion = {
     cells: PositionLiteral[];
 };
 
+export type PzlGeneratedSameValuePair = [PositionLiteral, PositionLiteral];
+
 export type PzlGeneratedArrow = {
     /** One-cell circles are represented by a single position. */
     circle: PositionLiteral | PositionLiteral[];
@@ -100,6 +102,14 @@ export type PzlGeneratedSudokuData = {
     diagonal?: boolean;
 
     /**
+     * Anti-diagonal sudoku support.
+     *
+     * If true, both main diagonals are highlighted in light grey and each of
+     * them may contain at most three different digits.
+     */
+    antiDiagonal?: boolean;
+
+    /**
      * Non-consecutive sudoku support.
      *
      * If true, all orthogonally adjacent cell pairs must not contain consecutive
@@ -115,6 +125,20 @@ export type PzlGeneratedSudokuData = {
      * This corresponds to a global "no X/V" rule without drawing any X/V marks.
      */
     noXV?: boolean;
+
+
+    /**
+     * Optional marked cells for same-parity sudoku.
+     * In each normal box/region, all marked cells must have the same parity.
+     */
+    sameParityCells?: PositionLiteral[];
+
+    /**
+     * Optional linked cell pairs for same-value sudoku.
+     * The two cells in each pair must contain the same digit and are drawn
+     * with a short grey line between them.
+     */
+    sameValuePairs?: PzlGeneratedSameValuePair[];
 
     /** 0/null/undefined = empty cell, positive number = given. */
     predef: PzlCellValue[][];

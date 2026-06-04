@@ -94,6 +94,9 @@ import { IBCodedZones } from "./pzl/ib/IBCodedZones";
 import { IBRounding } from "./pzl/ib/IBRounding";
 import { IBLiar } from "./pzl/ib/IBLiar";
 import { IBClone } from "./pzl/ib/IBClone";
+import { IBAntiDiagonal } from "./pzl/ib/IBAntiDiagonal";
+import { IBSameParity } from "./pzl/ib/IBSameParity";
+import { IBSameValue } from "./pzl/ib/IBSameValue";
 
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
@@ -166,6 +169,9 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     IBRounding,
     IBLiar,
     IBClone,
+    IBAntiDiagonal,
+    IBSameParity,
+    IBSameValue,
 
     PeaucellierLipkinLinkage,
     CaterpillarPoc,

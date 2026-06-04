@@ -10,6 +10,9 @@ import { CodedZonesConstraint } from "../../../components/puzzle/constraints/cod
 import { RoundingCageConstraint } from "../../../components/puzzle/constraints/rounding-cage/RoundingCage";
 import { LiarCellConstraint } from "../../../components/puzzle/constraints/liar-cell/LiarCell";
 import { CloneRegionsConstraint } from "../../../components/puzzle/constraints/clone-regions/CloneRegions";
+import { MaxThreeValuesConstraint } from "../../../components/puzzle/constraints/anti-diagonal/MaxThreeValues";
+import { SameParityConstraint } from "../../../components/puzzle/constraints/same-parity/SameParity";
+import { SameValueConstraint } from "../../../components/puzzle/constraints/same-value/SameValue";
 import { PuzzleImporter } from "../PuzzleImporter";
 import { PzlJsonGridParser } from "./PzlJsonGridParser";
 import { PzlGeneratedSudokuData } from "./PzlPuzzleTypes";
@@ -33,7 +36,7 @@ const parseCellLiteral = (literal: PositionLiteral): Position => {
     };
 };
 
-const getDiagonalConstraints = (size: number): Constraint<NumberPTM>[] => [
+const getDiagonalConstraints = (size: number): Constraint<NumberPTM, any>[] => [
     RegionConstraint(
         Array.from({ length: size }, (_, i) => cell(i, i)),
         false,
@@ -43,6 +46,18 @@ const getDiagonalConstraints = (size: number): Constraint<NumberPTM>[] => [
         Array.from({ length: size }, (_, i) => cell(i, size - 1 - i)),
         false,
         "main diagonal 2",
+    ),
+];
+
+
+const getAntiDiagonalConstraints = (size: number): Constraint<NumberPTM, any>[] => [
+    MaxThreeValuesConstraint(
+        Array.from({ length: size }, (_, i) => cell(i, i)),
+        "anti-diagonal main diagonal 1 max three values",
+    ),
+    MaxThreeValuesConstraint(
+        Array.from({ length: size }, (_, i) => cell(i, size - 1 - i)),
+        "anti-diagonal main diagonal 2 max three values",
     ),
 ];
 
@@ -99,7 +114,7 @@ const createPairConstraint = (
     cell1: Position,
     cell2: Position,
     isAllowedPair: (value: number, otherValue: number) => boolean,
-): Constraint<NumberPTM> => ({
+): Constraint<NumberPTM, any> => ({
     name,
     cells: [cell1, cell2],
     props: undefined,
@@ -139,7 +154,7 @@ const createPairConstraint = (
 const NonConsecutivePairConstraint = (
     cell1: Position,
     cell2: Position,
-): Constraint<NumberPTM> =>
+): Constraint<NumberPTM, any> =>
     createPairConstraint(
         "non-consecutive pair",
         cell1,
@@ -150,7 +165,7 @@ const NonConsecutivePairConstraint = (
 const NoXVPairConstraint = (
     cell1: Position,
     cell2: Position,
-): Constraint<NumberPTM> =>
+): Constraint<NumberPTM, any> =>
     createPairConstraint(
         "no XV pair",
         cell1,
@@ -160,9 +175,9 @@ const NoXVPairConstraint = (
 
 const getOrthogonalPairConstraints = (
     size: number,
-    factory: (cell1: Position, cell2: Position) => Constraint<NumberPTM>,
+    factory: (cell1: Position, cell2: Position) => Constraint<NumberPTM, any>,
 ) => {
-    const result: Constraint<NumberPTM>[] = [];
+    const result: Constraint<NumberPTM, any>[] = [];
 
     for (let top = 0; top < size; top++) {
         for (let left = 0; left < size; left++) {
@@ -181,12 +196,16 @@ const getOrthogonalPairConstraints = (
     return result;
 };
 
-const getExtraConstraints = (data: PzlGeneratedSudokuData): Constraint<NumberPTM>[] => {
+const getExtraConstraints = (data: PzlGeneratedSudokuData): Constraint<NumberPTM, any>[] => {
     const size = data.size ?? 9;
-    const result: Constraint<NumberPTM>[] = [];
+    const result: Constraint<NumberPTM, any>[] = [];
 
     if (data.diagonal) {
         result.push(...getDiagonalConstraints(size));
+    }
+
+    if (data.antiDiagonal) {
+        result.push(...getAntiDiagonalConstraints(size));
     }
 
     if (data.nonConsecutive) {
@@ -213,12 +232,25 @@ const getExtraConstraints = (data: PzlGeneratedSudokuData): Constraint<NumberPTM
         result.push(CloneRegionsConstraint(data.cloneRegions));
     }
 
+    if (data.sameParityCells?.length) {
+        result.push(SameParityConstraint(
+            data.sameParityCells,
+            size,
+            data.boxWidth ?? 3,
+            data.boxHeight ?? (size === 6 ? 2 : 3),
+        ));
+    }
+
+    if (data.sameValuePairs?.length) {
+        result.push(SameValueConstraint(data.sameValuePairs));
+    }
+
     return result;
 };
 
 const getExtraColors = (data: PzlGeneratedSudokuData) =>
     mergeInitialColors(
-        data.diagonal ? getDiagonalColors(data.size ?? 9) : undefined,
+        data.diagonal || data.antiDiagonal ? getDiagonalColors(data.size ?? 9) : undefined,
         data.cloneRegions?.length ? getCloneColors(data) : undefined,
     );
 
