@@ -258,6 +258,14 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
             importer.addKillerCage(this, cage.cells, cage.sum as any);
         }
 
+        // Temporary visual implementation for info-cell style clues:
+        // draw each liar clue as a one-cell dotted cage with a small string clue.
+        // If this is visually too heavy, we can replace it later with a dedicated
+        // cell-marker renderer.
+        for (const liarCell of puzzleJson.liarCells ?? []) {
+            importer.addKillerCage(this, [liarCell.cell], `${liarCell.value}` as any);
+        }
+
         for (const arrow of puzzleJson.arrows ?? []) {
             const circleCells = Array.isArray(arrow.circle) ? arrow.circle : [arrow.circle];
 

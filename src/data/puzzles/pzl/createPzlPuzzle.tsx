@@ -8,6 +8,7 @@ import { Position } from "../../../types/layout/Position";
 import { RegionConstraint } from "../../../components/puzzle/constraints/region/Region";
 import { CodedZonesConstraint } from "../../../components/puzzle/constraints/coded-zones/CodedZones";
 import { RoundingCageConstraint } from "../../../components/puzzle/constraints/rounding-cage/RoundingCage";
+import { LiarCellConstraint } from "../../../components/puzzle/constraints/liar-cell/LiarCell";
 import { PuzzleImporter } from "../PuzzleImporter";
 import { PzlJsonGridParser } from "./PzlJsonGridParser";
 import { PzlGeneratedSudokuData } from "./PzlPuzzleTypes";
@@ -151,6 +152,10 @@ const getExtraConstraints = (data: PzlGeneratedSudokuData): Constraint<NumberPTM
 
     for (const roundingCage of data.roundingCages ?? []) {
         result.push(RoundingCageConstraint(roundingCage));
+    }
+
+    for (const liarCell of data.liarCells ?? []) {
+        result.push(LiarCellConstraint(liarCell));
     }
 
     return result;

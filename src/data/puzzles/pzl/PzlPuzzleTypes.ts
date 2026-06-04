@@ -30,6 +30,11 @@ export type PzlGeneratedRoundingCage = {
     roundedToTen: number;
 };
 
+export type PzlGeneratedLiarCell = {
+    cell: PositionLiteral;
+    value: number;
+};
+
 export type PzlGeneratedArrow = {
     /** One-cell circles are represented by a single position. */
     circle: PositionLiteral | PositionLiteral[];
@@ -135,6 +140,14 @@ export type PzlGeneratedSudokuData = {
      * number, rounded to the nearest ten.
      */
     roundingCages?: PzlGeneratedRoundingCage[];
+
+    /**
+     * Optional liar clues.
+     *
+     * Each marked cell must contain a digit exactly one smaller or one larger
+     * than the small clue shown in the cell.
+     */
+    liarCells?: PzlGeneratedLiarCell[];
 
     /** Optional arrows. */
     arrows?: PzlGeneratedArrow[];
