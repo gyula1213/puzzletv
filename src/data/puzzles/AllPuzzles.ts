@@ -88,6 +88,8 @@ import { IBSumAround6 } from "./pzl/ib/IBSumAround6";
 import { IBJapaneseEvenOddSums } from "./pzl/ib/IBJapaneseEvenOddSums";
 import { IBJigsaw } from "./pzl/ib/IBJigsaw";
 import { IBDiagonal } from "./pzl/ib/IBDiagonal";
+import { IBNoXV } from "./pzl/ib/IBNoXV";
+import { IBNonConsecutive } from "./pzl/ib/IBNonConsecutive";
 
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
@@ -154,7 +156,8 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     IBJapaneseEvenOddSums,
     IBJigsaw,
     IBDiagonal,
-
+    IBNonConsecutive,
+    IBNoXV,
 
     PeaucellierLipkinLinkage,
     CaterpillarPoc,

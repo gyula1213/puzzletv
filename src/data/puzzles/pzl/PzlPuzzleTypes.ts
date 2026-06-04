@@ -74,6 +74,23 @@ export type PzlGeneratedSudokuData = {
      */
     diagonal?: boolean;
 
+    /**
+     * Non-consecutive sudoku support.
+     *
+     * If true, all orthogonally adjacent cell pairs must not contain consecutive
+     * digits. This is intentionally additive and does not affect puzzles where
+     * the flag is not present.
+     */
+    nonConsecutive?: boolean;
+
+    /**
+     * No XV sudoku support.
+     *
+     * If true, all orthogonally adjacent cell pairs must not sum to 5 or 10.
+     * This corresponds to a global "no X/V" rule without drawing any X/V marks.
+     */
+    noXV?: boolean;
+
     /** 0/null/undefined = empty cell, positive number = given. */
     predef: PzlCellValue[][];
 
