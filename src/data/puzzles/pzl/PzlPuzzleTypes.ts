@@ -11,7 +11,23 @@ export type PzlOutsideClueType =
 
 export type PzlGeneratedCage = {
     cells: PositionLiteral[];
-    sum?: number;
+
+    /**
+     * In normal killer cages this is a number. Some IB examples use the same
+     * dotted cage visual layer with a letter/string clue instead, for example
+     * coded zones A/B/C or rounding clues "20", "30", ...
+     */
+    sum?: number | string;
+};
+
+export type PzlGeneratedCodedZone = {
+    label: string;
+    zones: PositionLiteral[][];
+};
+
+export type PzlGeneratedRoundingCage = {
+    cells: PositionLiteral[];
+    roundedToTen: number;
 };
 
 export type PzlGeneratedArrow = {
@@ -100,8 +116,25 @@ export type PzlGeneratedSudokuData = {
     /** Rules text displayed by PuzzleTV. */
     rules?: string;
 
-    /** Optional killer cages. */
+    /** Optional killer cages or dotted labelled zones. */
     cages?: PzlGeneratedCage[];
+
+    /**
+     * Optional coded-zone constraints.
+     *
+     * Each item represents all zones with the same letter. The zones in one item
+     * must contain the same multiset of digits.
+     */
+    codedZones?: PzlGeneratedCodedZone[];
+
+    /**
+     * Optional rounding cages.
+     *
+     * These are visually drawn using normal dotted cages, but the constraint is
+     * not a killer sum. The digits in the two-cell rectangle form a two-digit
+     * number, rounded to the nearest ten.
+     */
+    roundingCages?: PzlGeneratedRoundingCage[];
 
     /** Optional arrows. */
     arrows?: PzlGeneratedArrow[];

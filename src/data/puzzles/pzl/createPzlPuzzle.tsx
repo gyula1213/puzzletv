@@ -6,6 +6,8 @@ import { CellColor } from "../../../types/puzzle/CellColor";
 import { Constraint } from "../../../types/puzzle/Constraint";
 import { Position } from "../../../types/layout/Position";
 import { RegionConstraint } from "../../../components/puzzle/constraints/region/Region";
+import { CodedZonesConstraint } from "../../../components/puzzle/constraints/coded-zones/CodedZones";
+import { RoundingCageConstraint } from "../../../components/puzzle/constraints/rounding-cage/RoundingCage";
 import { PuzzleImporter } from "../PuzzleImporter";
 import { PzlJsonGridParser } from "./PzlJsonGridParser";
 import { PzlGeneratedSudokuData } from "./PzlPuzzleTypes";
@@ -69,7 +71,12 @@ const createPairConstraint = (
         const value = getDigitByCellData(valueData, context, cell);
         const otherValue = getDigitByCellData(otherValueData, context, otherCell);
 
-        if (value === undefined || otherValue === undefined) {
+        if (
+            typeof value !== "number"
+            || typeof otherValue !== "number"
+            || !Number.isFinite(value)
+            || !Number.isFinite(otherValue)
+        ) {
             return true;
         }
 
@@ -136,6 +143,14 @@ const getExtraConstraints = (data: PzlGeneratedSudokuData): Constraint<NumberPTM
 
     if (data.noXV) {
         result.push(...getOrthogonalPairConstraints(size, NoXVPairConstraint));
+    }
+
+    for (const codedZone of data.codedZones ?? []) {
+        result.push(CodedZonesConstraint(codedZone));
+    }
+
+    for (const roundingCage of data.roundingCages ?? []) {
+        result.push(RoundingCageConstraint(roundingCage));
     }
 
     return result;

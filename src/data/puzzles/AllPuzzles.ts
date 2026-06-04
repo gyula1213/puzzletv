@@ -90,6 +90,8 @@ import { IBJigsaw } from "./pzl/ib/IBJigsaw";
 import { IBDiagonal } from "./pzl/ib/IBDiagonal";
 import { IBNoXV } from "./pzl/ib/IBNoXV";
 import { IBNonConsecutive } from "./pzl/ib/IBNonConsecutive";
+import { IBCodedZones } from "./pzl/ib/IBCodedZones";
+import { IBRounding } from "./pzl/ib/IBRounding";
 
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
@@ -158,6 +160,8 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     IBDiagonal,
     IBNonConsecutive,
     IBNoXV,
+    IBCodedZones,
+    IBRounding,
 
     PeaucellierLipkinLinkage,
     CaterpillarPoc,

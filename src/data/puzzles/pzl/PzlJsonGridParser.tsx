@@ -255,7 +255,7 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
         );
 
         for (const cage of puzzleJson.cages ?? []) {
-            importer.addKillerCage(this, cage.cells, cage.sum);
+            importer.addKillerCage(this, cage.cells, cage.sum as any);
         }
 
         for (const arrow of puzzleJson.arrows ?? []) {
