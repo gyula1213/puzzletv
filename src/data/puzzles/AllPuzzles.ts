@@ -87,6 +87,7 @@ import { PzlGeneratedLumosMaxima } from "./pzl/examples/PzlGeneratedLumosMaxima"
 import { IBSumAround6 } from "./pzl/ib/IBSumAround6";
 import { IBJapaneseEvenOddSums } from "./pzl/ib/IBJapaneseEvenOddSums";
 import { IBJigsaw } from "./pzl/ib/IBJigsaw";
+import { IBDiagonal } from "./pzl/ib/IBDiagonal";
 
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
@@ -152,6 +153,7 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     IBSumAround6,
     IBJapaneseEvenOddSums,
     IBJigsaw,
+    IBDiagonal,
 
 
     PeaucellierLipkinLinkage,

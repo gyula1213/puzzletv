@@ -66,6 +66,14 @@ export type PzlGeneratedSudokuData = {
      */
     regions?: number[][];
 
+    /**
+     * Sudoku-X / diagonal sudoku support.
+     *
+     * If true, both main diagonals are added as different-region constraints and
+     * the diagonal cells are highlighted in light grey.
+     */
+    diagonal?: boolean;
+
     /** 0/null/undefined = empty cell, positive number = given. */
     predef: PzlCellValue[][];
 
