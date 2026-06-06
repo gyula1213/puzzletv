@@ -9,6 +9,19 @@ export type PzlOutsideClueType =
     | "japanese-even-odd-sums"
     | "skyscraper";
 
+
+/**
+ * Text that can either be a plain string or language-specific text.
+ *
+ * PuzzleTV already supports translated text in many puzzle definitions. The
+ * generated PZL data keeps this lightweight: if a field is a string, it is used
+ * as-is; if it is an object, PuzzleTV can pick the current UI language.
+ */
+export type PzlTranslatedText = string | {
+    hu?: string;
+    en?: string;
+};
+
 export type PzlGeneratedCage = {
     cells: PositionLiteral[];
 
@@ -69,7 +82,7 @@ export type PzlGeneratedOutsideClues = {
 
 export type PzlGeneratedSudokuData = {
     /** Human-readable title shown by PuzzleTV. Usually generated from Name: */
-    title: string;
+    title: PzlTranslatedText;
 
     /** Optional author. Can be generated from a future author: keyword. */
     author?: string;
@@ -147,7 +160,7 @@ export type PzlGeneratedSudokuData = {
     solution: number[][];
 
     /** Rules text displayed by PuzzleTV. */
-    rules?: string;
+    rules?: PzlTranslatedText;
 
     /** Optional killer cages or dotted labelled zones. */
     cages?: PzlGeneratedCage[];

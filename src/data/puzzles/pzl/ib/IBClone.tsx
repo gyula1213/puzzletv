@@ -8,7 +8,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * contain the same digit.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Klón sudoku",
+    title: {
+        hu: "IB: Klón sudoku",
+        en: "IB: Clone sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-clone",
 
@@ -16,10 +19,16 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "A két szürke területben azonos pozícióban ugyanazok a számjegyek állnak.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "A két szürke területben azonos pozícióban ugyanazok a számjegyek állnak.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "The two grey areas are clones: cells in the same relative position contain the same digit.",
+        ].join("\n"),
+    },
 
     predef: [
         [5, 0, 0, 0, 0, 4],

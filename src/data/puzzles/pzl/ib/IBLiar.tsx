@@ -8,7 +8,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * the actual digit must be one smaller or one larger than the clue.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Hazudós sudoku",
+    title: {
+        hu: "IB: Hazudós sudoku",
+        en: "IB: Liar sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-liar",
 
@@ -16,10 +19,16 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "Minden jelölt mezőbe a megadott számnál eggyel kisebb vagy eggyel nagyobb számot kell írni.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "Minden jelölt mezőbe a megadott számnál eggyel kisebb vagy eggyel nagyobb számot kell írni.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "Every marked cell must contain a digit that is one smaller or one larger than the given clue.",
+        ].join("\n"),
+    },
 
     predef: [
         [0, 0, 0, 0, 0, 0],

@@ -9,7 +9,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * contain the same digit.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Azonos érték sudoku",
+    title: {
+        hu: "IB: Azonos érték sudoku",
+        en: "IB: Same value sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-same-value",
 
@@ -17,10 +20,16 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "Ha két mező vonallal van összekötve, akkor a két mezőbe ugyanazt a számot kell beírni.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "Ha két mező vonallal van összekötve, akkor a két mezőbe ugyanazt a számot kell beírni.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "If two cells are connected by a line, they must contain the same digit.",
+        ].join("\n"),
+    },
 
     predef: [
         [5, 0, 0, 0, 1, 0],

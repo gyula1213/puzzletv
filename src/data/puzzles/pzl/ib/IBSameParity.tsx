@@ -11,7 +11,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * normal 3x2 box of this 6x6 sample, all marked cells must have the same parity.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Azonos paritás sudoku",
+    title: {
+        hu: "IB: Azonos paritás sudoku",
+        en: "IB: Same parity sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-same-parity",
 
@@ -28,10 +31,16 @@ const puzzleData: PzlGeneratedSudokuData = {
         "R6C2", "R6C5",
     ],
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "Minden régión belül a kis négyzettel megjelölt mezőkbe vagy csak páros, vagy csak páratlan számok kerülhetnek.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "Minden régión belül a kis négyzettel megjelölt mezőkbe vagy csak páros, vagy csak páratlan számok kerülhetnek.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "Within each region, all cells marked with a small square must contain digits of the same parity: either all even or all odd.",
+        ].join("\n"),
+    },
 
     predef: [
         [0, 0, 0, 0, 0, 0],

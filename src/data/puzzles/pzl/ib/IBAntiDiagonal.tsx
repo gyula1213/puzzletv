@@ -11,7 +11,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * The highlighted main diagonals may contain at most three different digits.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Anti-átlós sudoku",
+    title: {
+        hu: "IB: Anti-átlós sudoku",
+        en: "IB: Anti-diagonal sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-anti-diagonal",
 
@@ -21,10 +24,16 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     antiDiagonal: true,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "A szürkével jelölt főátlókban csak három-három féle szám állhat.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "A szürkével jelölt főátlókban csak három-három féle szám állhat.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "Each grey main diagonal may contain only three different digits.",
+        ].join("\n"),
+    },
 
     predef: [
         [0, 2, 0, 0, 0, 0],

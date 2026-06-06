@@ -14,7 +14,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * 5,3,1;1,8;6,3;3,5,1;4,5;6,3
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Japán páros-páratlan összegek",
+    title: {
+        hu: "IB: Japán páros-páratlan összegek",
+        en: "IB: Japanese even/odd sums",
+    },
     author: "Instruction Booklet",
     slug: "ib-japanese-even-odd-sums",
 
@@ -24,11 +27,18 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     outsideClueType: "japanese-even-odd-sums",
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "A felül lévő számok az adott oszlopban lévő páros számok összegét mutatják blokkonként.",
-        "Az oldalsó számok a páratlan számok összegét mutatják blokkonként.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "A felül lévő számok az adott oszlopban lévő páros számok összegét mutatják blokkonként.",
+            "Az oldalsó számok a páratlan számok összegét mutatják blokkonként.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "The clues above the grid show the sums of the even digits in each column, grouped into blocks.",
+            "The clues on the side show the sums of the odd digits, grouped into blocks.",
+        ].join("\n"),
+    },
 
     predef: [
         [0, 0, 0, 0, 0, 0],

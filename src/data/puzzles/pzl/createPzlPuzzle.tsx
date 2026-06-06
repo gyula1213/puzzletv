@@ -15,9 +15,23 @@ import { SameParityConstraint } from "../../../components/puzzle/constraints/sam
 import { SameValueConstraint } from "../../../components/puzzle/constraints/same-value/SameValue";
 import { PuzzleImporter } from "../PuzzleImporter";
 import { PzlJsonGridParser } from "./PzlJsonGridParser";
-import { PzlGeneratedSudokuData } from "./PzlPuzzleTypes";
+import { PzlGeneratedSudokuData, PzlTranslatedText } from "./PzlPuzzleTypes";
 
 const cell = (top: number, left: number): Position => ({ top, left });
+
+
+const defaultRules: PzlTranslatedText = {
+    hu: "Normál sudoku szabályok érvényesek.",
+    en: "Normal sudoku rules apply.",
+};
+
+/**
+ * PuzzleTV's core import APIs may be typed narrowly in some versions, while the
+ * runtime puzzle definition supports translated text objects. Keep the PZL data
+ * type strict, and only bridge it at the importer boundary.
+ */
+const asPuzzleTvText = (text: PzlTranslatedText) => text as any;
+
 
 const parseCellLiteral = (literal: PositionLiteral): Position => {
     if (typeof literal !== "string") {
@@ -294,7 +308,7 @@ export const createPzlPuzzleDefinition = (data: PzlGeneratedSudokuData) => {
     const parser = new PzlJsonGridParser(data);
 
     const importOptions = {
-        title: data.title,
+        title: asPuzzleTvText(data.title),
         author: data.author,
     } as PuzzleImportOptions;
 

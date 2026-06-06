@@ -10,7 +10,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * Orthogonally adjacent cells may not contain consecutive digits.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Nem szomszédos sudoku",
+    title: {
+        hu: "IB: Nem szomszédos sudoku",
+        en: "IB: Non-consecutive sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-non-consecutive",
 
@@ -20,10 +23,16 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     nonConsecutive: true,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "Ortogonálisan szomszédos mezőkben nem állhat két egymást követő szám.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "Ortogonálisan szomszédos mezőkben nem állhat két egymást követő szám.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "Orthogonally adjacent cells may not contain consecutive digits.",
+        ].join("\n"),
+    },
 
     predef: [
         [4, 0, 0, 0, 0, 0],

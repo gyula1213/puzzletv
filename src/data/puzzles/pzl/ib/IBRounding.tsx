@@ -12,7 +12,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * left to right.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Kerekítős sudoku",
+    title: {
+        hu: "IB: Kerekítős sudoku",
+        en: "IB: Rounding sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-rounding",
 
@@ -20,10 +23,16 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "A téglalapokba írt kis számok az adott téglalapba kerülő kétjegyű számok tízesre kerekített értékét mutatják.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "A téglalapokba írt kis számok az adott téglalapba kerülő kétjegyű számok tízesre kerekített értékét mutatják.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "The small clue in each rectangle gives the two-digit number in that rectangle rounded to the nearest ten.",
+        ].join("\n"),
+    },
 
     predef: [
         [6, 0, 0, 0, 0, 3],

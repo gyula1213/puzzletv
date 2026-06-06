@@ -8,16 +8,25 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * The IB image shows 2;6;1;3;5;4, so this TSX uses the image value.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Amorf sudoku",
+    title: {
+        hu: "IB: Amorf sudoku",
+        en: "IB: Jigsaw sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-jigsaw",
 
     size: 6,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "A területek szabálytalan alakúak.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "A területek szabálytalan alakúak.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "The regions have irregular shapes.",
+        ].join("\n"),
+    },
 
     regions: [
         [1, 1, 1, 2, 2, 2],

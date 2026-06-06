@@ -11,7 +11,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * contain different digits. The diagonal cells are highlighted in light grey.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: Átlós sudoku",
+    title: {
+        hu: "IB: Átlós sudoku",
+        en: "IB: Diagonal sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-diagonal",
 
@@ -21,10 +24,16 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     diagonal: true,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "A két főátló mezőiben is különböző számoknak kell állniuk.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "A két főátló mezőiben is különböző számoknak kell állniuk.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "Digits must also be different on both main diagonals.",
+        ].join("\n"),
+    },
 
     predef: [
         [0, 0, 6, 3, 0, 0],

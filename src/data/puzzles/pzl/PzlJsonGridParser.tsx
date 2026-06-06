@@ -2,13 +2,21 @@ import { NumberPTM } from "../../../types/puzzle/PuzzleTypeMap";
 import { PositionLiteral } from "../../../types/layout/Position";
 import { GridParser } from "../GridParser";
 import { PuzzleImporter } from "../PuzzleImporter";
-import { PzlGeneratedSudokuData, PzlCellValue, PzlOutsideClueValue } from "./PzlPuzzleTypes";
+import { PzlGeneratedSudokuData, PzlCellValue, PzlOutsideClueValue, PzlTranslatedText } from "./PzlPuzzleTypes";
 import { SumAround6Constraint } from "../../../components/puzzle/constraints/sum-around-6/SumAround6";
 import {
     JapaneseEvenOddSumsConstraint,
     JapaneseEvenOddSumsMode,
 } from "../../../components/puzzle/constraints/japanese-even-odd-sums/JapaneseEvenOddSums";
 import { SkyscraperConstraint } from "../../../components/puzzle/constraints/skyscraper/Skyscraper";
+
+
+const defaultRules: PzlTranslatedText = {
+    hu: "Normál sudoku szabályok érvényesek.",
+    en: "Normal sudoku rules apply.",
+};
+
+const asPuzzleTvText = (text: PzlTranslatedText) => text as any;
 
 const isGiven = (value: PzlCellValue): value is number =>
     value !== undefined && value !== null && value !== 0;
@@ -206,9 +214,9 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
     override addToImporter(importer: PuzzleImporter<NumberPTM>) {
         const { puzzleJson, size } = this;
 
-        importer.setTitle(puzzleJson.title);
+        importer.setTitle(asPuzzleTvText(puzzleJson.title));
         importer.setAuthor(puzzleJson.author);
-        importer.setRuleset(this, puzzleJson.rules ?? "Normal sudoku rules apply.");
+        importer.setRuleset(this, asPuzzleTvText(puzzleJson.rules ?? defaultRules));
 
         importer.toggleSudokuRules(true);
 
@@ -255,16 +263,20 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
         );
 
         for (const cage of puzzleJson.cages ?? []) {
-            importer.addKillerCage(this, cage.cells, cage.sum as any);
+            // Only numeric cage clues are real killer cages.
+            // Some IB examples keep `cages` as visual/source notation with
+            // string labels, e.g. coded zones A/B/C or rounding labels "20".
+            // Those are drawn and checked by their own constraints, so adding
+            // them here as killer cages would introduce a wrong extra check.
+            if (typeof cage.sum === "number") {
+                importer.addKillerCage(this, cage.cells, cage.sum as any);
+            }
         }
 
-        // Temporary visual implementation for info-cell style clues:
-        // draw each liar clue as a one-cell dotted cage with a small string clue.
-        // If this is visually too heavy, we can replace it later with a dedicated
-        // cell-marker renderer.
-        for (const liarCell of puzzleJson.liarCells ?? []) {
-            importer.addKillerCage(this, [liarCell.cell], `${liarCell.value}` as any);
-        }
+        // Liar-cell clues are rendered and checked by LiarCellConstraint.
+        // Do not add them as one-cell killer cages here, because a killer cage
+        // would also enforce the clue as a sum/value and conflict with the
+        // liar rule (actual digit must be clue ± 1).
 
         for (const arrow of puzzleJson.arrows ?? []) {
             const circleCells = Array.isArray(arrow.circle) ? arrow.circle : [arrow.circle];

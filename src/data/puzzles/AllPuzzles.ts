@@ -97,7 +97,26 @@ import { IBClone } from "./pzl/ib/IBClone";
 import { IBAntiDiagonal } from "./pzl/ib/IBAntiDiagonal";
 import { IBSameParity } from "./pzl/ib/IBSameParity";
 import { IBSameValue } from "./pzl/ib/IBSameValue";
-
+import { VS2026R1P1Classic01 } from "./pzl/vs2026/VS2026R1P1Classic01";
+import { VS2026R1P2Classic02 } from "./pzl/vs2026/VS2026R1P2Classic02";
+import { VS2026R1P3Classic03 } from "./pzl/vs2026/VS2026R1P3Classic03";
+import { VS2026R1P4Amorf } from "./pzl/vs2026/VS2026R1P4Amorf";
+import { VS2026R1P5LiarEasy } from "./pzl/vs2026/VS2026R1P5LiarEasy";
+import { VS2026R1P6Liar } from "./pzl/vs2026/VS2026R1P6Liar";
+import { VS2026R1P7CloneEasy } from "./pzl/vs2026/VS2026R1P7CloneEasy";
+import { VS2026R1P8Clone } from "./pzl/vs2026/VS2026R1P8Clone";
+import { VS2026R1P11JapaneseSumsOE } from "./pzl/vs2026/VS2026R1P11JapaneseSumsOE";
+import { VS2026R1P9SumAround601 } from "./pzl/vs2026/VS2026R1P9SumAround601";
+import { VS2026R1P10SumAround602 } from "./pzl/vs2026/VS2026R1P10SumAround602";
+import { VS2026R2P1Classic01 } from "./pzl/vs2026/VS2026R2P1Classic01";
+import { VS2026R2P2Classic02 } from "./pzl/vs2026/VS2026R2P2Classic02";
+import { VS2026R2P3CodedZonesEasy } from "./pzl/vs2026/VS2026R2P3CodedZonesEasy";
+import { VS2026R2P4CodedZones } from "./pzl/vs2026/VS2026R2P4CodedZones";
+import { VS2026R2P5SameParityEasy } from "./pzl/vs2026/VS2026R2P5SameParityEasy";
+import { VS2026R2P6SameParity } from "./pzl/vs2026/VS2026R2P6SameParity";
+import { VS2026R2P7SameValue01 } from "./pzl/vs2026/VS2026R2P7SameValue01";
+import { VS2026R2P8SameValue02 } from "./pzl/vs2026/VS2026R2P8SameValue02";
+import { VS2026R2P9Rounding } from "./pzl/vs2026/VS2026R2P9Rounding";
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     // region Empty
@@ -172,6 +191,28 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     IBAntiDiagonal,
     IBSameParity,
     IBSameValue,
+
+    VS2026R1P1Classic01,
+    VS2026R1P2Classic02,
+    VS2026R1P3Classic03,
+    VS2026R1P4Amorf,
+    VS2026R1P5LiarEasy,
+    VS2026R1P6Liar,
+    VS2026R1P7CloneEasy,
+    VS2026R1P8Clone,
+    VS2026R1P9SumAround601,
+    VS2026R1P10SumAround602,
+    VS2026R1P11JapaneseSumsOE,
+    VS2026R2P1Classic01,
+    VS2026R2P2Classic02,
+    VS2026R2P3CodedZonesEasy,
+    VS2026R2P4CodedZones,
+    VS2026R2P5SameParityEasy,
+    VS2026R2P6SameParity,
+    VS2026R2P7SameValue01,
+    VS2026R2P8SameValue02,
+    VS2026R2P9Rounding,
+
 
     PeaucellierLipkinLinkage,
     CaterpillarPoc,

@@ -12,7 +12,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * There are no X/V marks in this sample; the rule is global.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "IB: No XV sudoku",
+    title: {
+        hu: "IB: No XV sudoku",
+        en: "IB: No XV sudoku",
+    },
     author: "Instruction Booklet",
     slug: "ib-no-xv",
 
@@ -22,10 +25,16 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     noXV: true,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "Ortogonálisan szomszédos mezők összege nem lehet 5 és nem lehet 10.",
-    ].join("\n"),
+    rules: {
+        hu: [
+            "Normál 6x6-os sudoku szabályok érvényesek.",
+            "Ortogonálisan szomszédos mezők összege nem lehet 5 és nem lehet 10.",
+        ].join("\n"),
+        en: [
+            "Normal 6x6 sudoku rules apply.",
+            "Orthogonally adjacent cells may not contain two digits summing to 5 or 10.",
+        ].join("\n"),
+    },
 
     predef: [
         [0, 0, 4, 0, 6, 0],
