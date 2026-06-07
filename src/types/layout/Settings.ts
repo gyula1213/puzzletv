@@ -5,10 +5,32 @@ import { AnimationSpeed } from "../puzzle/AnimationSpeed";
 import { UAParser } from "ua-parser-js";
 import { LanguageCode } from "../translations/LanguageCode";
 
+
+const getLanguageCodeFromUrl = (): LanguageCode | undefined => {
+    const hashMatch = /(?:^|:)lang=(hu|en)(?:$|[:&?#])/i.exec(window.location.hash);
+    const searchMatch = /(?:^|[?&])lang=(hu|en)(?:$|&)/i.exec(window.location.search);
+
+    const language = (hashMatch?.[1] || searchMatch?.[1])?.toLowerCase();
+
+    switch (language) {
+        case "hu":
+            return LanguageCode.hu;
+
+        case "en":
+            return LanguageCode.en;
+
+        default:
+            return undefined;
+    }
+};
+
+const getInitialLanguageCode = () =>
+    getLanguageCodeFromUrl() ?? LanguageCode.en;
+
 class Settings {
     isOpened = false;
 
-    languageCode = LanguageCode.en;
+    languageCode = getInitialLanguageCode();
 
     readonly enableConflictChecker = localStorageManager.getBoolManager("enableConflictChecker", true);
 
@@ -41,6 +63,14 @@ class Settings {
 
     constructor() {
         makeAutoObservable(this);
+
+        window.addEventListener("hashchange", () => {
+            const languageCode = getLanguageCodeFromUrl();
+
+            if (languageCode) {
+                this.setLanguageCode(languageCode);
+            }
+        });
     }
 
     toggle(open: boolean) {
