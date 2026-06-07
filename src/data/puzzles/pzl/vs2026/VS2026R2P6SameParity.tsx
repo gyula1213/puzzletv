@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 2: Azonos paritás sudoku.
  *
@@ -8,7 +12,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * normal 3x3 box, all marked cells must have the same parity.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Azonos paritás sudoku",
+    title: {
+        [LanguageCode.hu]: "Azonos paritás sudoku",
+        [LanguageCode.en]: "Same parity sudoku",
+    },
     author: "VS2026",
     slug: "vs2026-r2-p6-same-parity",
 
@@ -27,10 +34,22 @@ const puzzleData: PzlGeneratedSudokuData = {
         "R9C4", "R9C6", "R9C9",
     ],
 
-    rules: [
-        "Normál 9x9-es sudoku szabályok érvényesek.",
-        "Minden régión belül a kis négyzettel megjelölt mezőkbe vagy csak páros, vagy csak páratlan számok kerülhetnek.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 9x9-es sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 9x9 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Minden régión belül a kis négyzettel megjelölt mezőkbe vagy csak páros, vagy csak páratlan számok kerülhetnek.",
+                [LanguageCode.en]: "Within each region, all cells marked with a small square must contain digits of the same parity: either all even or all odd.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 3, 0, 0, 0, 4, 0, 0],

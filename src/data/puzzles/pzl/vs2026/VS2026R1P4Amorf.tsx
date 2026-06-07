@@ -1,20 +1,39 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 1 puzzle 4: Amorf sudoku.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Amorf sudoku",
+    title: {
+        [LanguageCode.hu]: "Amorf sudoku",
+        [LanguageCode.en]: "Jigsaw sudoku",
+    },
     author: "VS2026",
     slug: "vs2026-r1-p4-amorf",
 
     size: 9,
 
-    rules: [
-        "Normál 9x9-es sudoku szabályok érvényesek.",
-        "A területek szabálytalan alakúak.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 9x9-es sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 9x9 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A területek szabálytalan alakúak.",
+                [LanguageCode.en]: "The regions have irregular shapes.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     regions: [
         [1, 1, 1, 1, 2, 3, 3, 3, 3],

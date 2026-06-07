@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Anti-átlós sudoku.
  *
@@ -12,8 +16,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Anti-átlós sudoku",
-        en: "IB: Anti-diagonal sudoku",
+        [LanguageCode.hu]: "IB: Anti-átlós sudoku",
+        [LanguageCode.en]: "IB: Anti-diagonal sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-anti-diagonal",
@@ -24,16 +28,22 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     antiDiagonal: true,
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "A szürkével jelölt főátlókban csak három-három féle szám állhat.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "Each grey main diagonal may contain only three different digits.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A szürkével jelölt főátlókban csak három-három féle szám állhat.",
+                [LanguageCode.en]: "Each grey main diagonal may contain only three different digits.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 2, 0, 0, 0, 0],

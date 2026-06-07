@@ -1,4 +1,6 @@
 import { PositionLiteral } from "../../../types/layout/Position";
+import { LanguageCode } from "../../../types/translations/LanguageCode";
+import type { ReactNode } from "react";
 
 export type PzlCellValue = number | 0 | null | undefined;
 
@@ -9,18 +11,9 @@ export type PzlOutsideClueType =
     | "japanese-even-odd-sums"
     | "skyscraper";
 
+export type PzlTranslatedText = string | Partial<Record<LanguageCode, string>>;
 
-/**
- * Text that can either be a plain string or language-specific text.
- *
- * PuzzleTV already supports translated text in many puzzle definitions. The
- * generated PZL data keeps this lightweight: if a field is a string, it is used
- * as-is; if it is an object, PuzzleTV can pick the current UI language.
- */
-export type PzlTranslatedText = string | {
-    hu?: string;
-    en?: string;
-};
+export type PzlRules = string | (() => ReactNode);
 
 export type PzlGeneratedCage = {
     cells: PositionLiteral[];
@@ -160,7 +153,7 @@ export type PzlGeneratedSudokuData = {
     solution: number[][];
 
     /** Rules text displayed by PuzzleTV. */
-    rules?: PzlTranslatedText;
+    rules?: PzlRules;
 
     /** Optional killer cages or dotted labelled zones. */
     cages?: PzlGeneratedCage[];

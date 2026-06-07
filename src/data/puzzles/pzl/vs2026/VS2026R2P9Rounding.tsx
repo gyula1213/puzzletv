@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 2: Kerekítős sudoku.
  *
@@ -9,7 +13,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * rounded to the nearest ten.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Kerekítős sudoku",
+    title: {
+        [LanguageCode.hu]: "Kerekítős sudoku",
+        [LanguageCode.en]: "Rounding sudoku",
+    },
     author: "VS2026",
     slug: "vs2026-r2-p9-rounding",
 
@@ -17,10 +24,22 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 3,
 
-    rules: [
-        "Normál 9x9-es sudoku szabályok érvényesek.",
-        "A téglalapokba írt kis számok az adott téglalapba kerülő kétjegyű számok tízesre kerekített értékét mutatják.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 9x9-es sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 9x9 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A téglalapokba írt kis számok az adott téglalapba kerülő kétjegyű számok tízesre kerekített értékét mutatják.",
+                [LanguageCode.en]: "The small clue in each rectangle gives the two-digit number in that rectangle rounded to the nearest ten.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 0, 0, 0, 0, 0, 0, 1],

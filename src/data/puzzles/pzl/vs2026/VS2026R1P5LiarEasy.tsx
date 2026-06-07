@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 1: Hazudós sudoku.
  *
@@ -8,7 +12,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * the actual digit must be one smaller or one larger than the clue.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Hazudós sudoku easy",
+    title: {
+        [LanguageCode.hu]: "Hazudós sudoku easy",
+        [LanguageCode.en]: "Liar sudoku easy",
+    },
     author: "VS2026",
     slug: "vs2026-r1-p5-liar-easy",
 
@@ -16,10 +23,22 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 3,
 
-    rules: [
-        "Normál 9x9-es sudoku szabályok érvényesek.",
-        "Minden jelölt mezőbe a megadott számnál eggyel kisebb vagy eggyel nagyobb számot kell írni.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 9x9-es sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 9x9 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Minden jelölt mezőbe a megadott számnál eggyel kisebb vagy eggyel nagyobb számot kell írni.",
+                [LanguageCode.en]: "Every marked cell must contain a digit that is one smaller or one larger than the given clue.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],

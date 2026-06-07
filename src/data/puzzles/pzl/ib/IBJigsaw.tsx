@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Amorf sudoku.
  *
@@ -9,24 +13,30 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Amorf sudoku",
-        en: "IB: Jigsaw sudoku",
+        [LanguageCode.hu]: "IB: Amorf sudoku",
+        [LanguageCode.en]: "IB: Jigsaw sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-jigsaw",
 
     size: 6,
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "A területek szabálytalan alakúak.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "The regions have irregular shapes.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A területek szabálytalan alakúak.",
+                [LanguageCode.en]: "The regions have irregular shapes.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     regions: [
         [1, 1, 1, 2, 2, 2],

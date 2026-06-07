@@ -1,16 +1,30 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Classic 03",
+    title: {
+        [LanguageCode.hu]: "Klasszikus sudoku 03",
+        [LanguageCode.en]: "Classic sudoku 03",
+    },
     author: "VS2026",
     slug: "vs2026-r1-p3-classic-03",
 
     size: 9,
 
-    rules: [
-        "A klasszikus sudoku szabályai érvényesek.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A klasszikus sudoku szabályai érvényesek.",
+                [LanguageCode.en]: "Classic sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [1, 0, 0, 0, 0, 3, 0, 0, 0],

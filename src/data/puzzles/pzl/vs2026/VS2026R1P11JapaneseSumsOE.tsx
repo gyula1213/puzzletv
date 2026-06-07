@@ -1,11 +1,18 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 1: Japán páros-páratlan összegek.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Japán páros-páratlan összegek",
+    title: {
+        [LanguageCode.hu]: "Japán páros-páratlan összegek",
+        [LanguageCode.en]: "Japanese even/odd sums",
+    },
     author: "VS2026",
     slug: "vs2026-r1-p11-japanese-sums-oe",
 
@@ -15,11 +22,28 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     outsideClueType: "japanese-even-odd-sums",
 
-    rules: [
-        "Normál 9x9-es sudoku szabályok érvényesek.",
-        "A felül lévő számok az adott oszlopban lévő páros számok összegét mutatják blokkonként.",
-        "Az oldalsó számok a páratlan számok összegét mutatják blokkonként.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 9x9-es sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 9x9 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A felül lévő számok az adott oszlopban lévő páros számok összegét mutatják blokkonként.",
+                [LanguageCode.en]: "The clues above the grid show the sums of the even digits in each column, grouped into blocks.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Az oldalsó számok a páratlan számok összegét mutatják blokkonként.",
+                [LanguageCode.en]: "The clues on the side show the sums of the odd digits, grouped into blocks.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0,0,0,0,0,0,0,0,0],

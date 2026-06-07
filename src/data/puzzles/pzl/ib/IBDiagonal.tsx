@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Átlós sudoku.
  *
@@ -12,8 +16,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Átlós sudoku",
-        en: "IB: Diagonal sudoku",
+        [LanguageCode.hu]: "IB: Átlós sudoku",
+        [LanguageCode.en]: "IB: Diagonal sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-diagonal",
@@ -24,16 +28,22 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     diagonal: true,
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "A két főátló mezőiben is különböző számoknak kell állniuk.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "Digits must also be different on both main diagonals.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A két főátló mezőiben is különböző számoknak kell állniuk.",
+                [LanguageCode.en]: "Digits must also be different on both main diagonals.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 6, 3, 0, 0],

@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 1: Klón sudoku.
  *
@@ -8,7 +12,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * contain the same digit.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Klón sudoku",
+    title: {
+        [LanguageCode.hu]: "Klón sudoku",
+        [LanguageCode.en]: "Clone sudoku",
+    },
     author: "VS2026",
     slug: "vs2026-r1-p8-clone",
 
@@ -16,10 +23,22 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 3,
 
-    rules: [
-        "Normál 9x9-es sudoku szabályok érvényesek.",
-        "A két szürke területben azonos pozícióban ugyanazok a számjegyek állnak.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 9x9-es sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 9x9 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A két szürke területben azonos pozícióban ugyanazok a számjegyek állnak.",
+                [LanguageCode.en]: "The two grey areas are clones: cells in the same relative position contain the same digit.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 0, 0, 8, 0, 1, 0, 2],

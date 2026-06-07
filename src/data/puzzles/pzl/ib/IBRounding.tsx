@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Kerekítős sudoku.
  *
@@ -13,8 +17,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Kerekítős sudoku",
-        en: "IB: Rounding sudoku",
+        [LanguageCode.hu]: "IB: Kerekítős sudoku",
+        [LanguageCode.en]: "IB: Rounding sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-rounding",
@@ -23,16 +27,22 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "A téglalapokba írt kis számok az adott téglalapba kerülő kétjegyű számok tízesre kerekített értékét mutatják.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "The small clue in each rectangle gives the two-digit number in that rectangle rounded to the nearest ten.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A téglalapokba írt kis számok az adott téglalapba kerülő kétjegyű számok tízesre kerekített értékét mutatják.",
+                [LanguageCode.en]: "The small clue in each rectangle gives the two-digit number in that rectangle rounded to the nearest ten.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [6, 0, 0, 0, 0, 3],

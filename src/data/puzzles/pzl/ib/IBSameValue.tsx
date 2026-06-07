@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Azonos érték sudoku.
  *
@@ -10,8 +14,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Azonos érték sudoku",
-        en: "IB: Same value sudoku",
+        [LanguageCode.hu]: "IB: Azonos érték sudoku",
+        [LanguageCode.en]: "IB: Same value sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-same-value",
@@ -20,16 +24,22 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "Ha két mező vonallal van összekötve, akkor a két mezőbe ugyanazt a számot kell beírni.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "If two cells are connected by a line, they must contain the same digit.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Ha két mező vonallal van összekötve, akkor a két mezőbe ugyanazt a számot kell beírni.",
+                [LanguageCode.en]: "If two cells are connected by a line, they must contain the same digit.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [5, 0, 0, 0, 1, 0],

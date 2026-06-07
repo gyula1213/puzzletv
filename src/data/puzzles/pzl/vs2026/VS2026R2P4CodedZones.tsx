@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 2: Kódolt zónák sudoku.
  *
@@ -9,7 +13,10 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  * contain exactly the same multiset of digits.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Kódolt zónák sudoku",
+    title: {
+        [LanguageCode.hu]: "Kódolt zónák sudoku",
+        [LanguageCode.en]: "Coded zones sudoku",
+    },
     author: "VS2026",
     slug: "vs2026-r2-p4-coded-zones",
 
@@ -17,11 +24,28 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 3,
 
-    rules: [
-        "Normál 9x9-es sudoku szabályok érvényesek.",
-        "Az azonos betűvel jelölt területekben ugyanazoknak a számoknak kell állniuk.",
-        "Például ha az egyik A területben 1, 1, 4 és 5 áll, akkor a másik A területben is pontosan ez a négy számjegy szerepel.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 9x9-es sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 9x9 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Az azonos betűvel jelölt területekben ugyanazoknak a számoknak kell állniuk.",
+                [LanguageCode.en]: "Regions marked with the same letter must contain exactly the same multiset of digits.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Például ha az egyik A területben 1, 1, 4 és 5 áll, akkor a másik A területben is pontosan ez a négy számjegy szerepel.",
+                [LanguageCode.en]: "For example, if one A region contains 1, 1, 4 and 5, then the other A region must contain exactly those four digits as well.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [5, 0, 0, 0, 3, 0, 0, 0, 4],

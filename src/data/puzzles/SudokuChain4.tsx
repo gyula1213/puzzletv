@@ -7,6 +7,8 @@ import { CellColor } from "../../types/puzzle/CellColor";
 import { RegionConstraint } from "../../components/puzzle/constraints/region/Region";
 import { Constraint } from "../../types/puzzle/Constraint";
 import { Position } from "../../types/layout/Position";
+import { LanguageCode } from "../../types/translations/LanguageCode";
+import { translate } from "../../utils/translate";
 
 const SUDOKU_LOAD =
     "N4IgZg9gTgtghgFwGoFMoGcCWEB2IBcIAjAHQDMJADCADQgAOArgF7MA2KBoOcMnhAOV4oO6dAAJ0jACYQA1o1og4jBAAtoBEAFUccnBADuOcQEFVGqEoDGItugIBtUADc4bRvwDsAXxqv3TwIyPwCPfgBOUJA3cIIAVmjYoPwADiTA-gAmDLj8IlyUgBZC-gA2UoIS-xjMghya5P4Cxrr8ENa8is6UqJ7%2BdP6CXyH8RNHxsJTuqYHK-PmR2ar5vuX8BvWO9c3avOr1pb3p1fnt4-5Ji4IW9cH1meu0%2BaumldHbp6O3jbPT0bWT0%2BP3OP12P1ebXuTwOT0eP2%2BUJe81hCPm4La8LaoLagJ%2BwOx-we82hP1RbQJeUReUheQxeUpKWpKXpvT%2BE3mWLypLaJQAunRrLh0AgoHBMDgEA58M4QAgAJ70fiUaIKpU3OhQFAAc2wOGljkoNCNRqINDNZqyNCtVpNxvNDst1uddtNjudNpoZC9PqKND9fviNCDQe9Yf9EcDwej4e9AYjIejZRoyeTXho6fTqRo2ezqZTGcLWZzJfzaaLJdzfJ81Z8QA";
@@ -327,40 +329,54 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
             ],
 
             title: {
-                en: "4 Sudoku Chain",
+                [LanguageCode.hu]: "Nyerő négyes",
+                [LanguageCode.en]: "Winning Four",
             } as any,
             author: {
-                en: "Gyula Slenker",
+                [LanguageCode.hu]: "Gyula Slenker",
+                [LanguageCode.en]: "Gyula Slenker",
             } as any,
             rules: () => (
                 <>
                     <RulesParagraph>
-                        The puzzle consists of four overlapping Sudoku grids.
+                        {translate({
+                            [LanguageCode.hu]: "A rejtvény négy, egymást átfedő sudoku-táblából áll.",
+                            [LanguageCode.en]: "The puzzle consists of four overlapping Sudoku grids.",
+                        })}
                     </RulesParagraph>
                     <RulesParagraph>
-                        Normal Sudoku rules apply in each of the four 9×9 grids.
-                    </RulesParagraph>
-
-                    <RulesParagraph>
-                        1. Top Sudoku: Diagonal Sudoku. Digits 1–9 must also appear exactly
-                        once on both main diagonals.
-                    </RulesParagraph>
-
-                    <RulesParagraph>
-                        2. Left Sudoku: Non-consecutive Sudoku. Orthogonally adjacent cells
-                        may not contain consecutive digits.
+                        {translate({
+                            [LanguageCode.hu]: "Mind a négy 9×9-es táblában normál sudoku szabályok érvényesek.",
+                            [LanguageCode.en]: "Normal Sudoku rules apply in each of the four 9×9 grids.",
+                        })}
                     </RulesParagraph>
 
                     <RulesParagraph>
-                        3. Right Sudoku: No XV Sudoku. Orthogonally adjacent cells may not
-                        sum to 5 or 10.
+                        {translate({
+                            [LanguageCode.hu]: "1. Felső sudoku: Átlós sudoku. A két főátlóban is az 1–9 számjegyeknek pontosan egyszer kell szerepelniük.",
+                            [LanguageCode.en]: "1. Top Sudoku: Diagonal Sudoku. Digits 1–9 must also appear exactly once on both main diagonals.",
+                        })}
                     </RulesParagraph>
 
                     <RulesParagraph>
-                        4. Bottom Sudoku: For each of the two main diagonals, the first
-                        three cells, the middle three cells and the last three cells must
-                        contain identical sets of three digits. The order of the digits
-                        within each group is irrelevant.
+                        {translate({
+                            [LanguageCode.hu]: "2. Bal oldali sudoku: Nem szomszédos sudoku. Ortogonálisan szomszédos mezőkben nem állhat két egymást követő szám.",
+                            [LanguageCode.en]: "2. Left Sudoku: Non-consecutive Sudoku. Orthogonally adjacent cells may not contain consecutive digits.",
+                        })}
+                    </RulesParagraph>
+
+                    <RulesParagraph>
+                        {translate({
+                            [LanguageCode.hu]: "3. Jobb oldali sudoku: No XV sudoku. Ortogonálisan szomszédos mezők összege nem lehet 5 és nem lehet 10.",
+                            [LanguageCode.en]: "3. Right Sudoku: No XV Sudoku. Orthogonally adjacent cells may not sum to 5 or 10.",
+                        })}
+                    </RulesParagraph>
+
+                    <RulesParagraph>
+                        {translate({
+                            [LanguageCode.hu]: "4. Alsó sudoku: Mindkét főátlóban pobtosan 3 féle számjegy szerepel.",
+                            [LanguageCode.en]: "4. Bottom Sudoku: For each of the two main diagonals, the first three cells, the middle three cells and the last three cells must contain identical sets of three digits. The order of the digits within each group is irrelevant.",
+                        })}
                     </RulesParagraph>
                 </>
             ),

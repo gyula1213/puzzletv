@@ -1,8 +1,9 @@
 import { NumberPTM } from "../../../types/puzzle/PuzzleTypeMap";
 import { PositionLiteral } from "../../../types/layout/Position";
+import { LanguageCode } from "../../../types/translations/LanguageCode";
 import { GridParser } from "../GridParser";
 import { PuzzleImporter } from "../PuzzleImporter";
-import { PzlGeneratedSudokuData, PzlCellValue, PzlOutsideClueValue, PzlTranslatedText } from "./PzlPuzzleTypes";
+import { PzlGeneratedSudokuData, PzlCellValue, PzlOutsideClueValue } from "./PzlPuzzleTypes";
 import { SumAround6Constraint } from "../../../components/puzzle/constraints/sum-around-6/SumAround6";
 import {
     JapaneseEvenOddSumsConstraint,
@@ -11,12 +12,16 @@ import {
 import { SkyscraperConstraint } from "../../../components/puzzle/constraints/skyscraper/Skyscraper";
 
 
-const defaultRules: PzlTranslatedText = {
-    hu: "Normál sudoku szabályok érvényesek.",
-    en: "Normal sudoku rules apply.",
-};
+const defaultRules = "Normal sudoku rules apply.";
 
-const asPuzzleTvText = (text: PzlTranslatedText) => text as any;
+const getRulesetString = (rules: PzlGeneratedSudokuData["rules"]): string =>
+    typeof rules === "string" ? rules : defaultRules;
+
+const getTitleString = (title: PzlGeneratedSudokuData["title"]): string =>
+    typeof title === "string"
+        ? title
+        : title[LanguageCode.hu] ?? title[LanguageCode.en] ?? Object.values(title)[0] ?? "";
+
 
 const isGiven = (value: PzlCellValue): value is number =>
     value !== undefined && value !== null && value !== 0;
@@ -214,9 +219,9 @@ export class PzlJsonGridParser extends GridParser<NumberPTM, PzlGeneratedSudokuD
     override addToImporter(importer: PuzzleImporter<NumberPTM>) {
         const { puzzleJson, size } = this;
 
-        importer.setTitle(asPuzzleTvText(puzzleJson.title));
+        importer.setTitle(getTitleString(puzzleJson.title));
         importer.setAuthor(puzzleJson.author);
-        importer.setRuleset(this, asPuzzleTvText(puzzleJson.rules ?? defaultRules));
+        importer.setRuleset(this, getRulesetString(puzzleJson.rules));
 
         importer.toggleSudokuRules(true);
 

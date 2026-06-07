@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Japán páros-páratlan összegek.
  *
@@ -15,8 +19,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Japán páros-páratlan összegek",
-        en: "IB: Japanese even/odd sums",
+        [LanguageCode.hu]: "IB: Japán páros-páratlan összegek",
+        [LanguageCode.en]: "IB: Japanese even/odd sums",
     },
     author: "Instruction Booklet",
     slug: "ib-japanese-even-odd-sums",
@@ -27,18 +31,28 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     outsideClueType: "japanese-even-odd-sums",
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "A felül lévő számok az adott oszlopban lévő páros számok összegét mutatják blokkonként.",
-            "Az oldalsó számok a páratlan számok összegét mutatják blokkonként.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "The clues above the grid show the sums of the even digits in each column, grouped into blocks.",
-            "The clues on the side show the sums of the odd digits, grouped into blocks.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "A felül lévő számok az adott oszlopban lévő páros számok összegét mutatják blokkonként.",
+                [LanguageCode.en]: "The clues above the grid show the sums of the even digits in each column, grouped into blocks.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Az oldalsó számok a páratlan számok összegét mutatják blokkonként.",
+                [LanguageCode.en]: "The clues on the side show the sums of the odd digits, grouped into blocks.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 0, 0, 0, 0],

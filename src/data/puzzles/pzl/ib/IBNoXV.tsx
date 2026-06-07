@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: No XV sudoku.
  *
@@ -13,8 +17,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: No XV sudoku",
-        en: "IB: No XV sudoku",
+        [LanguageCode.hu]: "IB: No XV sudoku",
+        [LanguageCode.en]: "IB: No XV sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-no-xv",
@@ -25,16 +29,22 @@ const puzzleData: PzlGeneratedSudokuData = {
 
     noXV: true,
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "Ortogonálisan szomszédos mezők összege nem lehet 5 és nem lehet 10.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "Orthogonally adjacent cells may not contain two digits summing to 5 or 10.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Ortogonálisan szomszédos mezők összege nem lehet 5 és nem lehet 10.",
+                [LanguageCode.en]: "Orthogonally adjacent cells may not contain two digits summing to 5 or 10.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 4, 0, 6, 0],

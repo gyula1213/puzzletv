@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Azonos paritás sudoku.
  *
@@ -12,8 +16,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Azonos paritás sudoku",
-        en: "IB: Same parity sudoku",
+        [LanguageCode.hu]: "IB: Azonos paritás sudoku",
+        [LanguageCode.en]: "IB: Same parity sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-same-parity",
@@ -31,16 +35,22 @@ const puzzleData: PzlGeneratedSudokuData = {
         "R6C2", "R6C5",
     ],
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "Minden régión belül a kis négyzettel megjelölt mezőkbe vagy csak páros, vagy csak páratlan számok kerülhetnek.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "Within each region, all cells marked with a small square must contain digits of the same parity: either all even or all odd.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Minden régión belül a kis négyzettel megjelölt mezőkbe vagy csak páros, vagy csak páratlan számok kerülhetnek.",
+                [LanguageCode.en]: "Within each region, all cells marked with a small square must contain digits of the same parity: either all even or all odd.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 0, 0, 0, 0],

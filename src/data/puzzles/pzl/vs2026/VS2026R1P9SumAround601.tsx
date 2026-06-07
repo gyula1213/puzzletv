@@ -1,11 +1,18 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * VS2026 round 1: „Összeg a 6-os mellett” sudoku.
  */
 const puzzleData: PzlGeneratedSudokuData = {
-    title: "Összeg a 6-os mellett 01",
+    title: {
+        [LanguageCode.hu]: "Összeg a 6-os mellett 01",
+        [LanguageCode.en]: "Sum around 6 — 01",
+    },
     author: "VS2026",
     slug: "vs2026-r1-p9-sum-around6-01",
 
@@ -13,10 +20,22 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: [
-        "Normál 6x6-os sudoku szabályok érvényesek.",
-        "Az ábra mellé írt számok az adott sorban/oszlopban a 6-os mellett lévő egy vagy két szám összegét jelentik.",
-    ].join("\n"),
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Az ábra mellé írt számok az adott sorban/oszlopban a 6-os mellett lévő egy vagy két szám összegét jelentik.",
+                [LanguageCode.en]: "Outside clues show the sum of the one or two digits next to the 6 in the corresponding row or column.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 0, 0, 0, 0],

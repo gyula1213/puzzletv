@@ -1,6 +1,10 @@
 import { createPzlPuzzle } from "../createPzlPuzzle";
 import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
 
+import React from "react";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { translate } from "../../../../utils/translate";
 /**
  * IB sample: Kódolt zónák sudoku.
  *
@@ -10,8 +14,8 @@ import { PzlGeneratedSudokuData } from "../PzlPuzzleTypes";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        hu: "IB: Kódolt zónák sudoku",
-        en: "IB: Coded zones sudoku",
+        [LanguageCode.hu]: "IB: Kódolt zónák sudoku",
+        [LanguageCode.en]: "IB: Coded zones sudoku",
     },
     author: "Instruction Booklet",
     slug: "ib-coded-zones",
@@ -20,18 +24,28 @@ const puzzleData: PzlGeneratedSudokuData = {
     boxWidth: 3,
     boxHeight: 2,
 
-    rules: {
-        hu: [
-            "Normál 6x6-os sudoku szabályok érvényesek.",
-            "Az azonos betűvel jelölt területekben ugyanazoknak a számoknak kell állniuk.",
-            "Például ha az egyik A területben 1, 1, 4 és 5 áll, akkor a másik A területben is pontosan ez a négy számjegy szerepel.",
-        ].join("\n"),
-        en: [
-            "Normal 6x6 sudoku rules apply.",
-            "Regions marked with the same letter must contain exactly the same multiset of digits.",
-            "For example, if one A region contains 1, 1, 4 and 5, then the other A region must contain exactly those four digits as well.",
-        ].join("\n"),
-    },
+    rules: () => (
+        <>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Normál 6x6-os sudoku szabályok érvényesek.",
+                [LanguageCode.en]: "Normal 6x6 sudoku rules apply.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Az azonos betűvel jelölt területekben ugyanazoknak a számoknak kell állniuk.",
+                [LanguageCode.en]: "Regions marked with the same letter must contain exactly the same multiset of digits.",
+            })}
+        </RulesParagraph>
+        <RulesParagraph>
+            {translate({
+                [LanguageCode.hu]: "Például ha az egyik A területben 1, 1, 4 és 5 áll, akkor a másik A területben is pontosan ez a négy számjegy szerepel.",
+                [LanguageCode.en]: "For example, if one A region contains 1, 1, 4 and 5, then the other A region must contain exactly those four digits as well.",
+            })}
+        </RulesParagraph>
+        </>
+    ),
 
     predef: [
         [0, 0, 2, 0, 4, 0],

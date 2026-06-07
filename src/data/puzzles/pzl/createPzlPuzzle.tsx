@@ -5,6 +5,7 @@ import { DigitPuzzleTypeManager } from "../../../puzzleTypes/default/types/Digit
 import { CellColor } from "../../../types/puzzle/CellColor";
 import { Constraint } from "../../../types/puzzle/Constraint";
 import { Position, PositionLiteral } from "../../../types/layout/Position";
+import { LanguageCode } from "../../../types/translations/LanguageCode";
 import { RegionConstraint } from "../../../components/puzzle/constraints/region/Region";
 import { CodedZonesConstraint } from "../../../components/puzzle/constraints/coded-zones/CodedZones";
 import { RoundingCageConstraint } from "../../../components/puzzle/constraints/rounding-cage/RoundingCage";
@@ -15,22 +16,14 @@ import { SameParityConstraint } from "../../../components/puzzle/constraints/sam
 import { SameValueConstraint } from "../../../components/puzzle/constraints/same-value/SameValue";
 import { PuzzleImporter } from "../PuzzleImporter";
 import { PzlJsonGridParser } from "./PzlJsonGridParser";
-import { PzlGeneratedSudokuData, PzlTranslatedText } from "./PzlPuzzleTypes";
+import { PzlGeneratedSudokuData } from "./PzlPuzzleTypes";
 
 const cell = (top: number, left: number): Position => ({ top, left });
 
-
-const defaultRules: PzlTranslatedText = {
-    hu: "Normál sudoku szabályok érvényesek.",
-    en: "Normal sudoku rules apply.",
-};
-
-/**
- * PuzzleTV's core import APIs may be typed narrowly in some versions, while the
- * runtime puzzle definition supports translated text objects. Keep the PZL data
- * type strict, and only bridge it at the importer boundary.
- */
-const asPuzzleTvText = (text: PzlTranslatedText) => text as any;
+const getTitleString = (title: PzlGeneratedSudokuData["title"]): string =>
+    typeof title === "string"
+        ? title
+        : title[LanguageCode.hu] ?? title[LanguageCode.en] ?? Object.values(title)[0] ?? "";
 
 
 const parseCellLiteral = (literal: PositionLiteral): Position => {
@@ -308,7 +301,7 @@ export const createPzlPuzzleDefinition = (data: PzlGeneratedSudokuData) => {
     const parser = new PzlJsonGridParser(data);
 
     const importOptions = {
-        title: asPuzzleTvText(data.title),
+        title: getTitleString(data.title),
         author: data.author,
     } as PuzzleImportOptions;
 
@@ -325,6 +318,8 @@ export const createPzlPuzzleDefinition = (data: PzlGeneratedSudokuData) => {
 
     return {
         ...puzzle,
+        title: data.title as any,
+        ...(typeof data.rules === "function" ? { rules: data.rules } : {}),
         noIndex: false,
         slug: data.slug,
         saveStateKey: data.slug,
