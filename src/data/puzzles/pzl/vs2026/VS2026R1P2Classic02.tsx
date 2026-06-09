@@ -7,8 +7,8 @@ import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagra
 import { translate } from "../../../../utils/translate";
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        [LanguageCode.hu]: "Klasszikus sudoku 02",
-        [LanguageCode.en]: "Classic sudoku 02",
+        [LanguageCode.hu]: "Klasszikus sudoku - 02",
+        [LanguageCode.en]: "Classic sudoku - 02",
     },
     author: "VS2026",
     slug: "vs2026-r1-p2-classic-02",

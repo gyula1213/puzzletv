@@ -61,7 +61,6 @@ import { CaterpillarPoc } from "./Caterpillar";
 import { PeaucellierLipkinLinkage } from "./PeaucellierLipkinLinkage";
 import { JsTest } from "./JsTest";
 import { TesztSudoku } from "./TesztSudoku";
-import { SudokuChain4 } from "./SudokuChain4";
 import { Cornered, SlideAndSeekExample, SlideAndSeekIntro, TheBlackSheep, TheGap, WaxOnWaxOff } from "./SlideAndSeek";
 import { ElephantSlitherlink } from "./Slitherlink";
 import { EmptySpark, EmptySpark6x6, SparkKropki, Sparkster } from "./Spark";
@@ -101,22 +100,23 @@ import { VS2026R1P1Classic01 } from "./pzl/vs2026/VS2026R1P1Classic01";
 import { VS2026R1P2Classic02 } from "./pzl/vs2026/VS2026R1P2Classic02";
 import { VS2026R1P3Classic03 } from "./pzl/vs2026/VS2026R1P3Classic03";
 import { VS2026R1P4Amorf } from "./pzl/vs2026/VS2026R1P4Amorf";
-import { VS2026R1P5LiarEasy } from "./pzl/vs2026/VS2026R1P5LiarEasy";
-import { VS2026R1P6Liar } from "./pzl/vs2026/VS2026R1P6Liar";
-import { VS2026R1P7CloneEasy } from "./pzl/vs2026/VS2026R1P7CloneEasy";
-import { VS2026R1P8Clone } from "./pzl/vs2026/VS2026R1P8Clone";
+import { VS2026R1P5Liar01 } from "./pzl/vs2026/VS2026R1P5Liar01";
+import { VS2026R1P6Liar02 } from "./pzl/vs2026/VS2026R1P6Liar02";
+import { VS2026R1P7Clone01 } from "./pzl/vs2026/VS2026R1P7Clone01";
+import { VS2026R1P8Clone02 } from "./pzl/vs2026/VS2026R1P8Clone02";
 import { VS2026R1P11JapaneseSumsOE } from "./pzl/vs2026/VS2026R1P11JapaneseSumsOE";
 import { VS2026R1P9SumAround601 } from "./pzl/vs2026/VS2026R1P9SumAround601";
 import { VS2026R1P10SumAround602 } from "./pzl/vs2026/VS2026R1P10SumAround602";
 import { VS2026R2P1Classic01 } from "./pzl/vs2026/VS2026R2P1Classic01";
 import { VS2026R2P2Classic02 } from "./pzl/vs2026/VS2026R2P2Classic02";
-import { VS2026R2P3CodedZonesEasy } from "./pzl/vs2026/VS2026R2P3CodedZonesEasy";
-import { VS2026R2P4CodedZones } from "./pzl/vs2026/VS2026R2P4CodedZones";
-import { VS2026R2P5SameParityEasy } from "./pzl/vs2026/VS2026R2P5SameParityEasy";
-import { VS2026R2P6SameParity } from "./pzl/vs2026/VS2026R2P6SameParity";
+import { VS2026R2P3CodedZones01 } from "./pzl/vs2026/VS2026R2P3CodedZones01";
+import { VS2026R2P4CodedZones02 } from "./pzl/vs2026/VS2026R2P4CodedZones02";
+import { VS2026R2P5SameParity01 } from "./pzl/vs2026/VS2026R2P5SameParity01";
+import { VS2026R2P6SameParity02 } from "./pzl/vs2026/VS2026R2P6SameParity02";
 import { VS2026R2P7SameValue01 } from "./pzl/vs2026/VS2026R2P7SameValue01";
 import { VS2026R2P8SameValue02 } from "./pzl/vs2026/VS2026R2P8SameValue02";
 import { VS2026R2P9Rounding } from "./pzl/vs2026/VS2026R2P9Rounding";
+import { VS2026R3P1WinningFour } from "./pzl/vs2026/VS2026R3P1WinningFour";
 
 export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     // region Empty
@@ -172,7 +172,6 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
 
     JsTest,
     TesztSudoku,
-    SudokuChain4,
     PzlJsonSudoku,
     PzlJsonLumenSudoku,
     PzlGeneratedTesztSudoku,
@@ -196,22 +195,23 @@ export const AllPuzzles: PuzzleDefinitionOrLoader<AnyPTM>[] = [
     VS2026R1P2Classic02,
     VS2026R1P3Classic03,
     VS2026R1P4Amorf,
-    VS2026R1P5LiarEasy,
-    VS2026R1P6Liar,
-    VS2026R1P7CloneEasy,
-    VS2026R1P8Clone,
+    VS2026R1P5Liar01,
+    VS2026R1P6Liar02,
+    VS2026R1P7Clone01,
+    VS2026R1P8Clone02,
     VS2026R1P9SumAround601,
     VS2026R1P10SumAround602,
     VS2026R1P11JapaneseSumsOE,
     VS2026R2P1Classic01,
     VS2026R2P2Classic02,
-    VS2026R2P3CodedZonesEasy,
-    VS2026R2P4CodedZones,
-    VS2026R2P5SameParityEasy,
-    VS2026R2P6SameParity,
+    VS2026R2P3CodedZones01,
+    VS2026R2P4CodedZones02,
+    VS2026R2P5SameParity01,
+    VS2026R2P6SameParity02,
     VS2026R2P7SameValue01,
     VS2026R2P8SameValue02,
     VS2026R2P9Rounding,
+    VS2026R3P1WinningFour,
 
 
     PeaucellierLipkinLinkage,

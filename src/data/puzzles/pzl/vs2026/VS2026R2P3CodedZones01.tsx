@@ -6,7 +6,7 @@ import { LanguageCode } from "../../../../types/translations/LanguageCode";
 import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
 import { translate } from "../../../../utils/translate";
 /**
- * VS2026 round 2: Kódolt zónák sudoku.
+ * VS2026 round 2: Kódolt zónák sudoku - 01.
  *
  * The PZL "sub-region" map describes the dotted cages.
  * The matching "info-cell" letters identify which disconnected zones must
@@ -14,11 +14,11 @@ import { translate } from "../../../../utils/translate";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        [LanguageCode.hu]: "Kódolt zónák sudoku",
-        [LanguageCode.en]: "Coded zones sudoku",
+        [LanguageCode.hu]: "Kódolt zónák sudoku - 01",
+        [LanguageCode.en]: "Coded zones sudoku - 01",
     },
     author: "VS2026",
-    slug: "vs2026-r2-p4-coded-zones",
+    slug: "vs2026-r2-p3-coded-zones-01",
 
     size: 9,
     boxWidth: 3,
@@ -48,70 +48,70 @@ const puzzleData: PzlGeneratedSudokuData = {
     ),
 
     predef: [
-        [5, 0, 0, 0, 3, 0, 0, 0, 4],
-        [0, 0, 2, 0, 0, 0, 7, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 3, 0],
+        [0, 4, 8, 0, 0, 0, 5, 6, 0],
+        [1, 7, 0, 0, 0, 0, 0, 4, 9],
+        [5, 0, 0, 0, 3, 0, 0, 0, 8],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [8, 0, 0, 0, 7, 0, 0, 0, 2],
+        [0, 0, 2, 0, 4, 0, 1, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 8, 0, 0, 0, 0, 0, 9, 0],
-        [0, 0, 6, 0, 0, 0, 5, 0, 0],
-        [4, 0, 0, 0, 6, 0, 0, 0, 7],
+        [6, 0, 0, 0, 1, 0, 0, 0, 7],
+        [7, 3, 0, 0, 0, 0, 0, 5, 2],
+        [0, 5, 4, 0, 0, 0, 3, 9, 0],
     ],
 
     solution: [
-        [5, 7, 8, 9, 3, 2, 6, 1, 4],
-        [3, 4, 2, 6, 8, 1, 7, 5, 9],
-        [6, 1, 9, 7, 4, 5, 2, 3, 8],
-        [9, 6, 3, 1, 2, 8, 4, 7, 5],
-        [8, 5, 4, 3, 7, 9, 1, 6, 2],
-        [1, 2, 7, 4, 5, 6, 9, 8, 3],
-        [7, 8, 5, 2, 1, 4, 3, 9, 6],
-        [2, 3, 6, 8, 9, 7, 5, 4, 1],
-        [4, 9, 1, 5, 6, 3, 8, 2, 7],
+        [2, 4, 8, 9, 7, 1, 5, 6, 3],
+        [1, 7, 3, 6, 5, 8, 2, 4, 9],
+        [5, 9, 6, 4, 3, 2, 7, 1, 8],
+        [3, 1, 5, 7, 8, 6, 9, 2, 4],
+        [9, 8, 2, 3, 4, 5, 1, 7, 6],
+        [4, 6, 7, 1, 2, 9, 8, 3, 5],
+        [6, 2, 9, 5, 1, 3, 4, 8, 7],
+        [7, 3, 1, 8, 9, 4, 6, 5, 2],
+        [8, 5, 4, 2, 6, 7, 3, 9, 1],
     ],
 
     cages: [
-        { sum: "A", cells: ["R3C3", "R4C3"] },
-        { sum: "B", cells: ["R3C4", "R3C5"] },
-        { sum: "C", cells: ["R3C6", "R3C7"] },
-        { sum: "D", cells: ["R4C7", "R5C7"] },
-        { sum: "A", cells: ["R6C7", "R7C7"] },
-        { sum: "D", cells: ["R7C5", "R7C6"] },
-        { sum: "C", cells: ["R7C3", "R7C4"] },
-        { sum: "B", cells: ["R5C3", "R6C3"] },
+        { sum: "A", cells: ["R3C3", "R3C4", "R4C3", "R4C4"] },
+        { sum: "B", cells: ["R3C6", "R3C7", "R4C6", "R4C7"] },
+        { sum: "C", cells: ["R6C3", "R6C4", "R7C3", "R7C4"] },
+        { sum: "D", cells: ["R6C6", "R6C7", "R7C6", "R7C7"] },
+        { sum: "C", cells: ["R1C4", "R1C5", "R1C6", "R2C5"] },
+        { sum: "D", cells: ["R4C1", "R5C1", "R5C2", "R6C1"] },
+        { sum: "A", cells: ["R4C9", "R5C8", "R5C9", "R6C9"] },
+        { sum: "B", cells: ["R8C5", "R9C4", "R9C5", "R9C6"] },
     ],
 
     codedZones: [
         {
             label: "A",
             zones: [
-                ["R3C3", "R4C3"],
-                ["R6C7", "R7C7"],
+                ["R3C3", "R3C4", "R4C3", "R4C4"],
+                ["R4C9", "R5C8", "R5C9", "R6C9"],
             ],
         },
         {
             label: "B",
             zones: [
-                ["R3C4", "R3C5"],
-                ["R5C3", "R6C3"],
+                ["R3C6", "R3C7", "R4C6", "R4C7"],
+                ["R8C5", "R9C4", "R9C5", "R9C6"],
             ],
         },
         {
             label: "C",
             zones: [
-                ["R3C6", "R3C7"],
-                ["R7C3", "R7C4"],
+                ["R6C3", "R6C4", "R7C3", "R7C4"],
+                ["R1C4", "R1C5", "R1C6", "R2C5"],
             ],
         },
         {
             label: "D",
             zones: [
-                ["R4C7", "R5C7"],
-                ["R7C5", "R7C6"],
+                ["R6C6", "R6C7", "R7C6", "R7C7"],
+                ["R4C1", "R5C1", "R5C2", "R6C1"],
             ],
         },
     ],
 };
 
-export const VS2026R2P4CodedZones = createPzlPuzzle(puzzleData);
+export const VS2026R2P3CodedZones01 = createPzlPuzzle(puzzleData);

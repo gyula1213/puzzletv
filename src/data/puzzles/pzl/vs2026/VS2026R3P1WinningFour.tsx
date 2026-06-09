@@ -1,14 +1,14 @@
-import { PuzzleDefinition, PuzzleDefinitionLoader } from "../../types/puzzle/PuzzleDefinition";
-import { NumberPTM } from "../../types/puzzle/PuzzleTypeMap";
-import { SudokuMaker } from "./Import";
-import { PuzzleImportSource } from "../../types/puzzle/PuzzleImportOptions";
-import { RulesParagraph } from "../../components/puzzle/rules/RulesParagraph";
-import { CellColor } from "../../types/puzzle/CellColor";
-import { RegionConstraint } from "../../components/puzzle/constraints/region/Region";
-import { Constraint } from "../../types/puzzle/Constraint";
-import { Position } from "../../types/layout/Position";
-import { LanguageCode } from "../../types/translations/LanguageCode";
-import { translate } from "../../utils/translate";
+import { PuzzleDefinition, PuzzleDefinitionLoader } from "../../../../types/puzzle/PuzzleDefinition";
+import { NumberPTM } from "../../../../types/puzzle/PuzzleTypeMap";
+import { SudokuMaker } from "../../Import";
+import { PuzzleImportSource } from "../../../../types/puzzle/PuzzleImportOptions";
+import { RulesParagraph } from "../../../../components/puzzle/rules/RulesParagraph";
+import { CellColor } from "../../../../types/puzzle/CellColor";
+import { RegionConstraint } from "../../../../components/puzzle/constraints/region/Region";
+import { Constraint } from "../../../../types/puzzle/Constraint";
+import { Position } from "../../../../types/layout/Position";
+import { LanguageCode } from "../../../../types/translations/LanguageCode";
+import { translate } from "../../../../utils/translate";
 
 const SUDOKU_LOAD =
     "N4IgZg9gTgtghgFwGoFMoGcCWEB2IBcIAjAHQDMJADCADQgAOArgF7MA2KBoOcMnhAOV4oO6dAAJ0jACYQA1o1og4jBAAtoBEAFUccnBADuOcQEFVGqEoDGItugIBtUADc4bRvwDsAXxqv3TwIyPwCPfgBOUJA3cIIAVmjYoPwADiTA-gAmDLj8IlyUgBZC-gA2UoIS-xjMghya5P4Cxrr8ENa8is6UqJ7%2BdP6CXyH8RNHxsJTuqYHK-PmR2ar5vuX8BvWO9c3avOr1pb3p1fnt4-5Ji4IW9cH1meu0%2BaumldHbp6O3jbPT0bWT0%2BP3OP12P1ebXuTwOT0eP2%2BUJe81hCPm4La8LaoLagJ%2BwOx-we82hP1RbQJeUReUheQxeUpKWpKXpvT%2BE3mWLypLaJQAunRrLh0AgoHBMDgEA58M4QAgAJ70fiUaIKpU3OhQFAAc2wOGljkoNCNRqINDNZqyNCtVpNxvNDst1uddtNjudNpoZC9PqKND9fviNCDQe9Yf9EcDwej4e9AYjIejZRoyeTXho6fTqRo2ezqZTGcLWZzJfzaaLJdzfJ81Z8QA";
@@ -64,7 +64,7 @@ const initialDigits = [
 ];
 
 const initialColors: any = {};
-
+// Felső átlók
 for (let r = 0; r < 9; r++) {
     const row = initialColors[r] ?? {};
 
@@ -72,6 +72,15 @@ for (let r = 0; r < 9; r++) {
     row[14 - r] = [CellColor.lightGrey];
 
     initialColors[r] = row;
+}
+// Alsó átlók
+for (let r = 0; r < 9; r++) {
+    const row = initialColors[r+12] ?? {};
+
+    row[r + 6] = [CellColor.lightGrey];
+    row[14 - r] = [CellColor.lightGrey];
+
+    initialColors[r+12] = row;
 }
 
 const NonConsecutivePairConstraint = (
@@ -185,9 +194,9 @@ const MaxThreeValuesConstraint = (
     },
 });
 
-export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
+export const VS2026R3P1WinningFour: PuzzleDefinitionLoader<NumberPTM> = {
     noIndex: false,
-    slug: "sudoku-chain-4",
+    slug: "vs2026-r3-p1-winning-four",
     loadPuzzle: () => {
         const puzzle = SudokuMaker.loadPuzzle({
             load: SUDOKU_LOAD,
@@ -333,7 +342,7 @@ export const SudokuChain4: PuzzleDefinitionLoader<NumberPTM> = {
                 [LanguageCode.en]: "Winning Four",
             } as any,
             author: {
-                [LanguageCode.hu]: "Gyula Slenker",
+                [LanguageCode.hu]: "Slenker Gyula",
                 [LanguageCode.en]: "Gyula Slenker",
             } as any,
             rules: () => (

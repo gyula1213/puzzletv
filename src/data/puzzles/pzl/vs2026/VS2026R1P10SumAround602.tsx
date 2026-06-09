@@ -10,9 +10,10 @@ import { translate } from "../../../../utils/translate";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        [LanguageCode.hu]: "Összeg a 6-os mellett 02",
+        [LanguageCode.hu]: "Összeg a 6-os mellett - 02",
         [LanguageCode.en]: "Sum around 6 — 02",
     },
+    outsideClueType: "sum-around-6",
     author: "VS2026",
     slug: "vs2026-r1-p10-sum-around6-02",
 

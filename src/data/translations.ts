@@ -6,7 +6,7 @@ export const translationsExactType = {
     by: {
         [LanguageCode.ru]: "от",
         [LanguageCode.de]: "von",
-        [LanguageCode.hu]: "",
+        [LanguageCode.hu]: " ",
     },
     you: {
         [LanguageCode.ru]: "Вы",

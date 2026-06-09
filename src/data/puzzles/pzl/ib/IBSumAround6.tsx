@@ -21,6 +21,7 @@ const puzzleData: PzlGeneratedSudokuData = {
         [LanguageCode.hu]: "IB: Összeg a 6-os mellett",
         [LanguageCode.en]: "IB: Sum around 6",
     },
+    outsideClueType: "sum-around-6",
     author: "Instruction Booklet",
     slug: "ib-sum-around-6",
 

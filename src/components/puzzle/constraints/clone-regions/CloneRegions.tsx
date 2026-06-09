@@ -98,9 +98,8 @@ export const CloneRegionsConstraint = (
                     const otherDigit = getDigitAtCell(otherRegion[i].cell, digits, context);
 
                     if (firstDigit === undefined || otherDigit === undefined) {
-                        return true;
+                        continue;
                     }
-
                     if (firstDigit !== otherDigit) {
                         return false;
                     }

@@ -13,11 +13,11 @@ import { translate } from "../../../../utils/translate";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        [LanguageCode.hu]: "Azonos paritás sudoku",
-        [LanguageCode.en]: "Same parity sudoku",
+        [LanguageCode.hu]: "Azonos paritás sudoku - 02",
+        [LanguageCode.en]: "Same parity sudoku - 02",
     },
     author: "VS2026",
-    slug: "vs2026-r2-p6-same-parity",
+    slug: "vs2026-r2-p6-same-parity-02",
 
     size: 9,
     boxWidth: 3,
@@ -76,4 +76,4 @@ const puzzleData: PzlGeneratedSudokuData = {
     ],
 };
 
-export const VS2026R2P6SameParity = createPzlPuzzle(puzzleData);
+export const VS2026R2P6SameParity02 = createPzlPuzzle(puzzleData);

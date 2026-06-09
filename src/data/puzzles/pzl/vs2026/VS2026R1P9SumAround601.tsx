@@ -13,6 +13,8 @@ const puzzleData: PzlGeneratedSudokuData = {
         [LanguageCode.hu]: "Összeg a 6-os mellett 01",
         [LanguageCode.en]: "Sum around 6 — 01",
     },
+    outsideClueType: "sum-around-6",
+
     author: "VS2026",
     slug: "vs2026-r1-p9-sum-around6-01",
 

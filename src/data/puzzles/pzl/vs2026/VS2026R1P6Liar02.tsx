@@ -13,11 +13,11 @@ import { translate } from "../../../../utils/translate";
  */
 const puzzleData: PzlGeneratedSudokuData = {
     title: {
-        [LanguageCode.hu]: "Hazudós sudoku",
-        [LanguageCode.en]: "Liar sudoku",
+        [LanguageCode.hu]: "Hazudós sudoku - 02",
+        [LanguageCode.en]: "Liar sudoku - 02",
     },
     author: "VS2026",
-    slug: "vs2026-r1-p6-liar",
+    slug: "vs2026-r1-p6-liar-02",
 
     size: 9,
     boxWidth: 3,
@@ -105,4 +105,4 @@ const puzzleData: PzlGeneratedSudokuData = {
     ],
 };
 
-export const VS2026R1P6Liar = createPzlPuzzle(puzzleData);
+export const VS2026R1P6Liar02 = createPzlPuzzle(puzzleData);
